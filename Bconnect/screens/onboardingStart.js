@@ -4,7 +4,8 @@ import { View, StyleSheet, Text, TouchableOpacity, ImageBackground } from 'react
 import backgroundImage from '../assets/backgroundOnSt.jpg';
 
 export default function App() {
-  return (
+  
+    return (
     <ImageBackground 
       style={styles.container}
       source={backgroundImage}
@@ -81,3 +82,4 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
 });
+
