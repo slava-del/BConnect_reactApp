@@ -1,11 +1,14 @@
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import PopupReg from './popupRegister';
+
 import backgroundImage from '../assets/backgroundOnSt.jpg';
 
 export default function App() {
-  
-    return (
+  const [modalVisible, setModalVisible] = useState(false);
+
+  return (
     <ImageBackground 
       style={styles.container}
       source={backgroundImage}
@@ -13,21 +16,41 @@ export default function App() {
     >
 
       <StatusBar style="auto" />
-      <Text style={styles.firstText}>Alătură-te comunității noastre de utilizatori</Text>
-      <Text style={styles.secondText}>
-        Descoperă cele mai bune afaceri locale din Republica Moldova
-      </Text>
-      <Text style={styles.thirdText}>
-        Simplu și ușor
-      </Text>
-      <TouchableOpacity
+      
+      { !modalVisible && (
+        <Text style={styles.firstText}>Alătură-te comunității noastre de utilizatori</Text>
+      )}
+      
+      { !modalVisible && (
+        <Text style={styles.secondText}>
+          Descoperă cele mai bune afaceri locale din Republica Moldova
+        </Text>
+      )}
+      
+      { !modalVisible && (
+        <Text style={styles.thirdText}>
+          Simplu și ușor
+        </Text>
+      )}
+
+      { !modalVisible && (
+        <TouchableOpacity
           style={styles.exploreBtn}
+          onPress={() => setModalVisible(true)}
         >
           <Text style={styles.exploreBtnTxt}>Înregistrează-te</Text>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      )}
+
+      <PopupReg
+        isVisible={modalVisible}
+        onClose={() => setModalVisible(false)}
+      />
     </ImageBackground>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -77,7 +100,7 @@ const styles = StyleSheet.create({
     bottom: 80,
   },
   exploreBtnTxt: {
-    color:"black",
+    color:"white",
     fontWeight: "bold",
     fontSize: 15,
   },

@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     bottom: 80,
   },
   exploreBtnTxt: {
-    color:"black",
+    color:"white",
     fontWeight: "bold",
     fontSize: 15,
   },
