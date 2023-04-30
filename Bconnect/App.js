@@ -5,7 +5,14 @@ import OnboardingSt from './screens/onboardingStart';
 import OnboardingTr from './screens/onboardingTr';
 import OnboardingFinal from './screens/onboardingFinal';
 import PopupReg from './screens/popupRegister';
-import AccConfig from './screens/accountConfig';
+import AccConfig from './screens/accountScreen';
+import BottomTabNavigator from './screens/appNavigator';
+import mapViewScreen from './screens/mapViewScreen';
+import CategoriesScreen from './screens/categoriesScreen';
+import HomeScreen from './screens/homeScreen';
+
+
+
 
 const Stack = createStackNavigator();
 
@@ -13,7 +20,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen name="AccConfig" component={AccConfig} options={{ headerShown: false }} /> */}
+        <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} options={{ headerShown: false }} /> 
+        <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="mapViewScreen" component={mapViewScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="AccConfig" component={AccConfig} options={{ headerShown: false }} />
         <Stack.Screen name="OnboardingSt" component={OnboardingSt} options={{ headerShown: false }} />
         <Stack.Screen name="OnboardingTr" component={OnboardingTr} options={{ headerShown: false }} />
         <Stack.Screen name="OnboardingFinal" component={OnboardingFinal} options={{ headerShown: false }} />
