@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity, backgroundColor } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
@@ -32,7 +32,7 @@ const styles = {
       marginRight: 20,
     },
     searchInput: {
-      backgroundColor: '#F2F2F2',
+      backgroundColor: '#D2EBF4',
       paddingVertical: 10,
       paddingHorizontal: 20,
       borderRadius: 50,

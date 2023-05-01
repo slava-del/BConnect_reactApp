@@ -9,9 +9,11 @@ import {
   UIManager,
   Platform,
   ScrollView,
+  Image,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import SearchBar from "../components/searchBar";
+import categoriesData from '../components/categories'
 
 if (
   Platform.OS === "android" &&
@@ -20,187 +22,6 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-// {
-//   id: 1,
-//   title: "Category 1",
-//   subcategories: ["Subcategory 1.1", "Subcategory 1.2"],
-//   iconPath: require('path/to/your/icon1.png'),
-// },
-
-const categoriesData = [
-  {
-    id: 1,
-    title: "Agricultura & Alimentare",
-    subcategories: [
-      "Animale de crescatorie (zootehnie) si peste",
-      "Agricultura si exploatare forestiera",
-      "Produse alimentare",
-      "Bauturi",
-      "Produse ecologice (organice, bio)",
-      "Mașini și echipamente agricole și forestiere",
-      "Mașini și echipamente pentru industriile: alimentara, a bauturilor, a tutunului și pentru catering",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 2,
-    title: "Chimice, Farmaceutice & Plastice",
-    subcategories: [
-      "Produse din cauciuc",
-      "Produse din plastic",
-      "Compusi chimici de baza",
-      "Produse chimice",
-      "Sanatate, medicina si farmacologie",
-      "Echipamente și instalații pentru industria chimica",
-      "Echipamente si instalatii pentru industria cauciucului si a materialelor plastice",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 3,
-    title: "Constructii",
-    subcategories: [
-      "Cherestea, produse din lemn, masini si echipamente pentru industria de prelucrare a lemnului",
-      "Mobilier si lenjerie de casa",
-      "Construcții metalice pentru industria construcțiilor",
-      "Conducte, supape și containere/rezervoare, din metal",
-      "Feronerie, cutite si scule",
-      "Echipament de paza si protectie",
-      "Echipamente de incalzire, ventilatie, conditionare a aerului (HVAC) si refrigerare",
-      "Utilaje și echipamente pentru construcții civile și industriale",
-      "Contractori de constructii civile si maritime",
-      "Constructii",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 4,
-    title: "Educatie, Instruire & Organizatii",
-    subcategories: [
-      "Educatie si instruire/training",
-      "Organizatii, administratii si asociatii internationale",
-      "Servicii sociale si de ingrijiri medicale, la domiciliu",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 5,
-    title: "Electrice, Electronice & Optice",
-    subcategories: [
-      "Echipamente electrice Echipamente nucleare",
-      "Echipamente opto-electronice Echipamente de telecomunicatii",
-      "Echipamente de masura si testare",
-      "Echipamente optice, fotografice si cinematografice",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 6,
-    title: "Energie, Mediu",
-    subcategories: [
-      "Energie, combustibili si apa",
-      "Echipamente și instalații pentru industria petrolului și gazelor",
-      "Servicii de mediu, energii regenerabile",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 7,
-    title: "Hartie, Tiparire, Publicare",
-    subcategories: [
-      "Hartie si carton",
-      "Tiparire si editare",
-      "Echipamente si instalatii de fabricare a hartiei si cartonului",
-      "Echipamente de tiparit. Echipamente de birou si magazin",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 8,
-    title: "IT, Internet, Cercetare & Dezvoltare",
-    subcategories: [
-      "Tehnologia informației (IT) și Internet",
-      "Birouri tehnice si consultanta in inginerie, arhitecti",
-      "Cercetare si testari",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 9,
-    title: "Metale, Masini si Utilaje & Inginerie",
-    subcategories: [
-      "Produse metalurgice",
-      "Motoare si piese mecanice",
-      "Masini si echipamente pentru prelucrarea metalelor",
-      "Subcontractori industriali",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 10,
-    title: "Minerale",
-    subcategories: [
-      "Minereuri si minerale",
-      "Roca de cariera",
-      "Sticla, ciment si ceramica",
-      "Utilaje și echipamente pentru minerit, exploatare in cariera și prelucrarea pietrelor naturale",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 11,
-    title: "Retail & Comercianti",
-    subcategories: [
-      "Comercianti in general, depozite angro si magazine de vanzare cu amanuntul",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 12,
-    title: "Servicii Business",
-    subcategories: [
-      "Igiena și curațenie",
-      "Servicii pentru afaceri",
-      "Servicii financiare si de asigurari",
-      "Servicii de inchiriere",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 13,
-    title: "Textile, Confectii, Piele, Ceasuri, Bijuterii",
-    subcategories: [
-      "Piei, blanuri si produsele lor",
-      "Textile",
-      "Imbracaminte si incaltaminte",
-      "Prelucrarea pietrelor pretioase, fabricarea ceasurilor si a bijuteriilor",
-      "Masini si echipamente pentru fabricarea produselor textile, imbracamintei, pielii si incaltamintei",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 14,
-    title: "Transport & Logistica",
-    subcategories: [
-      "Instalații și echipamente de manipulare și depozitare",
-      "Mașini, echipamente și servicii de ambalat",
-      "Mijloace de transport (Automotive si celelalte)",
-      "Servicii de transport si logistica",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-  {
-    id: 15,
-    title: "Turism & Recreere",
-    subcategories: [
-      "Echipamente pentru sport și agrement",
-      "Industriile de turism si ospitalitate hoteliera si de catering",
-      "Comunicatii (servicii postale), telecomunicatii, radio si televiziune",
-      "Odihna, cultura si agrement",
-    ],
-    //   iconPath: require('path/to/your/icon1.png'),
-  },
-];
 
 export default function App() {
   const [expandedCategories, setExpandedCategories] = useState([]);
@@ -252,6 +73,7 @@ export default function App() {
                   <MaterialIcons name="expand-more" size={24} color="black" />
                 </Animated.View>
                 <Text style={styles.categoryText}>{category.title}</Text>
+                <Image source={category.iconPath} style={styles.icon}/>
                 {/* <Image source={category.iconPath} style={styles.icon} /> */}
               </TouchableOpacity>
 
@@ -310,7 +132,7 @@ styles = StyleSheet.create({
     maxWidth: "100%",
   },
   categoryText: {
-    marginLeft: 16,
+    marginLeft: 7,
     fontSize: 18,
   },
   icon: {
@@ -319,12 +141,12 @@ styles = StyleSheet.create({
     height: 24,
   },
   subcategoriesContainer: {
-    paddingLeft: 48,
+    paddingHorizontal: 20,
     marginTop: 8,
   },
   subcategoryButton: {
     marginBottom: 8,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: "#D2EBF4",
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 8,

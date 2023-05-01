@@ -36,11 +36,11 @@ const App = () => {
               <View style={styles.buttons}>
                 <TouchableOpacity style={styles.locationButton}>
                   <MaterialCommunityIcons name="map-marker" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Location</Text>
+                  <Text style={styles.buttonText}>Locație</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.callButton}>
-                  <MaterialCommunityIcons name="phone" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Call</Text>
+                  {/* <MaterialCommunityIcons name="phone" size={18} color="#00273D" /> */}
+                  <Text style={styles.buttonText}>Detalii</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -54,11 +54,11 @@ const App = () => {
               <View style={styles.buttons}>
                 <TouchableOpacity style={styles.locationButton}>
                   <MaterialCommunityIcons name="map-marker" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Location</Text>
+                  <Text style={styles.buttonText}>Locație</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.callButton}>
-                  <MaterialCommunityIcons name="phone" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Call</Text>
+                  {/* <MaterialCommunityIcons name="phone" size={18} color="#00273D" /> */}
+                  <Text style={styles.buttonText}>Detalii</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -72,11 +72,11 @@ const App = () => {
               <View style={styles.buttons}>
                 <TouchableOpacity style={styles.locationButton}>
                   <MaterialCommunityIcons name="map-marker" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Location</Text>
+                  <Text style={styles.buttonText}>Locație</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.callButton}>
-                  <MaterialCommunityIcons name="phone" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Call</Text>
+                  {/* <MaterialCommunityIcons name="phone" size={18} color="#00273D" /> */}
+                  <Text style={styles.buttonText}>Detalii</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -106,11 +106,11 @@ const App = () => {
               <View style={styles.buttons}>
                 <TouchableOpacity style={styles.locationButton}>
                   <MaterialCommunityIcons name="map-marker" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Location</Text>
+                  <Text style={styles.buttonText}>Locație</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.callButton}>
-                  <MaterialCommunityIcons name="phone" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Call</Text>
+                  {/* <MaterialCommunityIcons name="phone" size={18} color="#00273D" /> */}
+                  <Text style={styles.buttonText}>Detalii</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -124,11 +124,11 @@ const App = () => {
               <View style={styles.buttons}>
                 <TouchableOpacity style={styles.locationButton}>
                   <MaterialCommunityIcons name="map-marker" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Location</Text>
+                  <Text style={styles.buttonText}>Locație</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.callButton}>
-                  <MaterialCommunityIcons name="phone" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Call</Text>
+                  {/* <MaterialCommunityIcons name="phone" size={18} color="#00273D" /> */}
+                  <Text style={styles.buttonText}>Detalii</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -142,11 +142,11 @@ const App = () => {
               <View style={styles.buttons}>
                 <TouchableOpacity style={styles.locationButton}>
                   <MaterialCommunityIcons name="map-marker" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Location</Text>
+                  <Text style={styles.buttonText}>Locație</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.callButton}>
-                  <MaterialCommunityIcons name="phone" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Call</Text>
+                  {/* <MaterialCommunityIcons name="phone" size={18} color="#00273D" /> */}
+                  <Text style={styles.buttonText}>Detalii</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -174,11 +174,11 @@ const App = () => {
               <View style={styles.buttons}>
                 <TouchableOpacity style={styles.locationButton}>
                   <MaterialCommunityIcons name="map-marker" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Location</Text>
+                  <Text style={styles.buttonText}>Locație</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.callButton}>
-                  <MaterialCommunityIcons name="phone" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Call</Text>
+                  {/* <MaterialCommunityIcons name="phone" size={18} color="#00273D" /> */}
+                  <Text style={styles.buttonText}>Detalii</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -192,11 +192,11 @@ const App = () => {
               <View style={styles.buttons}>
                 <TouchableOpacity style={styles.locationButton}>
                   <MaterialCommunityIcons name="map-marker" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Location</Text>
+                  <Text style={styles.buttonText}>Locație</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.callButton}>
-                  <MaterialCommunityIcons name="phone" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Call</Text>
+                  {/* <MaterialCommunityIcons name="phone" size={18} color="#00273D" /> */}
+                  <Text style={styles.buttonText}>Detalii</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -210,11 +210,11 @@ const App = () => {
               <View style={styles.buttons}>
                 <TouchableOpacity style={styles.locationButton}>
                   <MaterialCommunityIcons name="map-marker" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Location</Text>
+                  <Text style={styles.buttonText}>Locație</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.callButton}>
-                  <MaterialCommunityIcons name="phone" size={18} color="#00273D" />
-                  <Text style={styles.buttonText}>Call</Text>
+                  {/* <MaterialCommunityIcons name="phone" size={18} color="#00273D" /> */}
+                  <Text style={styles.buttonText}>Detalii</Text>
                 </TouchableOpacity>
               </View>
             </View>
