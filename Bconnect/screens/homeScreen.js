@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import SearchBar from '../components/searchBar';
 
 const App = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.searchBar}>
+      <SearchBar style={styles.searchBar}/>
+      {/* <View style={styles.searchBar}>
         <TextInput
           placeholder="Caută o afacere"
           style={styles.searchInput}
@@ -13,8 +15,7 @@ const App = () => {
         <TouchableOpacity>
           <MaterialCommunityIcons name="filter-variant" size={28} color="#000" />
         </TouchableOpacity>
-      </View>
-
+      </View> */}
       {/* Section 1 */}
 
       <ScrollView vertical={true} showsVerticalScrollIndicator={false}>
@@ -236,8 +237,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF',
-    paddingTop: 40,
-    paddingHorizontal: 20,
+    paddingTop: 0,
+    paddingHorizontal: 0,
   },
   searchBar: {
     flexDirection: 'row',
