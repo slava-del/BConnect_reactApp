@@ -39,6 +39,8 @@ const MyPopup = (props) => {
         setPasswordTyped(false);
     };
 
+    
+
     return (
         <Modal visible={props.isVisible} animationType="slide" transparent={true}>
             <KeyboardAvoidingView style={styles.centerContainer} behavior='padding'>

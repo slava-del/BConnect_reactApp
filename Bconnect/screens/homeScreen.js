@@ -61,7 +61,7 @@ const styles = {
     flex: 1,
     backgroundColor: "#FFF",
     paddingTop: 30,
-    paddingHorizontal: 0,
+    paddingHorizontal: 16,
   },
   
   logoTextContainer: {

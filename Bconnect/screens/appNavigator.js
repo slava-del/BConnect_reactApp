@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeScreen from './homeScreen';
 import CategoriesScreen from './categoriesScreen';
 import MapViewScreen from './mapViewScreen';
-import AccountScreen from './accountScreen';
+import AccountQ from './accountQ';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -49,7 +49,7 @@ const CustomNavigationBar = () => {
       />
       <Tab.Screen
         name="Cont"
-        component={AccountScreen}
+        component={AccountQ}
         options={{
           tabBarLabel: 'Cont',
           tabBarIcon: ({ color }) => (
