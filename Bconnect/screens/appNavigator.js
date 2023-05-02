@@ -1,5 +1,4 @@
 import React from 'react';
-import {View} from 'react-native'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeScreen from './homeScreen';
@@ -16,7 +15,7 @@ const CustomNavigationBar = () => {
       activeColor="#00273D"
       inactiveColor="#00273D"
       barStyle={{ backgroundColor: '#D2EBF4', height: 75}}
-      shifting={true}
+      shifting={false}
     >
       <Tab.Screen
         name="Acasă"
@@ -32,9 +31,9 @@ const CustomNavigationBar = () => {
         name="Categorii"
         component={CategoriesScreen}
         options={{
-          tabBarLabel: 'Categorii',
+          tabBarLabel: 'Căutare',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="view-grid" color={color} size={26} />
+            <MaterialCommunityIcons name="briefcase-search" color={color} size={26} />
           ),
         }}
       />

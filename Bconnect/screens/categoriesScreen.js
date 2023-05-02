@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import SearchBar from "../components/searchBar";
-import categoriesData from '../components/categories'
+import categoriesData from '../components/categoriesData'
 
 if (
   Platform.OS === "android" &&
