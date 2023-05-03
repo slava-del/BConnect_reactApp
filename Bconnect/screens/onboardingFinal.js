@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import PopupReg from './popupRegister';
 
@@ -8,12 +7,6 @@ import backgroundImage from '../assets/backgroundOnSt.jpg';
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
-
-  const navigation = useNavigation();
-  
-  const handleNavigateToBottomTab = () => {
-    navigation.navigate('BottomTabNavigator');
-  };
 
   return (
     <ImageBackground 
@@ -43,7 +36,7 @@ export default function App() {
       { !modalVisible && (
         <TouchableOpacity
           style={styles.exploreBtn}
-          onPress={handleNavigateToBottomTab}
+          onPress={() => setModalVisible(true)}
         >
           <Text style={styles.exploreBtnTxt}>Înregistrează-te</Text>
         </TouchableOpacity>
