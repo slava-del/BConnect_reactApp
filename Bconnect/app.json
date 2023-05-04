@@ -1,36 +1,33 @@
 {
   "expo": {
-    "name": "Bconnect",
-    "slug": "Bconnect",
+    "name": "BConnect",
+    "slug": "business-connections-moldova",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "description": "description",
+    "icon": "./assets/logo.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
+    "updates": {
+      "enabled": true,
+      "fallbackToCacheTimeout": 0
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "com.example.app"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+      "package": "com.myapp.BConnect",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
     },
     "extra": {
       "eas": {
-        "projectId": "65d94e3b-e783-42dd-9e76-233f73c7a5bd"
+        "projectId": "2c98dba6-9ebe-4584-9b1f-d7ff0e657052"
       }
     }
   }

@@ -12,8 +12,10 @@ import {
   UIManager,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 import EditPopup from "../components/accountQPopup";
+import categoriesData from "../data/categoriesData";
 
 export default function AccountConfiguration() {
   const [title, setTitle] = useState("");
@@ -23,6 +25,7 @@ export default function AccountConfiguration() {
   const [email, setEmail] = useState("");
   const [galleryImages, setGalleryImages] = useState([]);
   const [uploadedImages, setUploadedImages] = useState(Array(18).fill(null)); //max 18 images - section gallery
+  const [selectedCategoryId, setSelectedCategoryId] = useState(1);
 
   // For image uploading
   const [profileImage, setProfileImage] = useState(null);
@@ -34,9 +37,6 @@ export default function AccountConfiguration() {
   const handleOpenPopup = () => {
     setModalVisible(true);
   };
-
-
-
 
   // for animating phone numbers
   if (
@@ -85,7 +85,7 @@ export default function AccountConfiguration() {
   }
 
   function onSave() {
-    // Save data 
+    // Save data
   }
 
   // deletes an image
@@ -187,18 +187,44 @@ export default function AccountConfiguration() {
           value={title}
           placeholder="Titlu"
         />
-        <TextInput
-          style={styles.inputField}
-          onChangeText={setCategory}
-          value={category}
-          placeholder="Categorie"
-        />
-        <TextInput
-          style={styles.inputField}
-          onChangeText={setSubCategory}
-          value={subCategory}
-          placeholder="Subcategorie"
-        />
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={selectedCategoryId}
+            onValueChange={(itemValue) => {
+              setSelectedCategoryId(itemValue);
+              setCategory(
+                categoriesData.find((cat) => cat.id === itemValue).title
+              );
+            }}
+            style={styles.picker}
+          >
+            {categoriesData.map((category) => (
+              <Picker.Item
+                key={category.id}
+                label={category.title}
+                value={category.id}
+              />
+            ))}
+          </Picker>
+        </View>
+
+        <View style={styles.pickerContainer}>
+          <Picker
+            selectedValue={subCategory}
+            onValueChange={(itemValue) => setSubCategory(itemValue)}
+            style={styles.picker}
+          >
+            {categoriesData
+              .find((category) => category.id === selectedCategoryId)
+              .subcategories.map((subcategory, index) => (
+                <Picker.Item
+                  key={index}
+                  label={subcategory}
+                  value={subcategory}
+                />
+              ))}
+          </Picker>
+        </View>
 
         <View style={styles.separator} />
 
@@ -278,6 +304,16 @@ const styles = StyleSheet.create({
     height: 2,
     backgroundColor: "black",
     marginVertical: 20,
+  },
+  pickerContainer: {
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 10,
+    marginBottom: 15,
+  },
+  picker: {
+    height: 50,
+    width: "100%",
   },
   title: {
     fontSize: 23,
@@ -415,18 +451,18 @@ const styles = StyleSheet.create({
   galleryContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between", 
+    justifyContent: "space-between",
   },
   imageContainer: {
     position: "relative",
-    width: "32%", 
-    marginBottom: 10, 
+    width: "32%",
+    marginBottom: 10,
   },
   galleryImage: {
     width: "100%",
     height: 150,
     resizeMode: "cover",
-    borderRadius: 5, 
+    borderRadius: 5,
   },
   galleryHeader: {
     flexDirection: "row",
@@ -460,6 +496,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
-
-

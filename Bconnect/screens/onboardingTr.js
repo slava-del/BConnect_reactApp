@@ -30,7 +30,7 @@
 
 import React, { useEffect } from 'react';
 import { View, StyleSheet, ImageBackground, StatusBar } from 'react-native';
-import backgroundImage from '../assets/backgroundOnTr.png';
+import backgroundImage from '../assets/backgroundOnTr.jpg';
 import { useNavigation } from '@react-navigation/native';
 
 export default function BackgroundPage() {
