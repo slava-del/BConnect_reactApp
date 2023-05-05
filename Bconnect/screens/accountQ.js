@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -14,6 +14,8 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 import EditPopup from "../components/accountQPopup";
 import categoriesData from "../data/categoriesData";
 
@@ -26,6 +28,14 @@ export default function AccountConfiguration() {
   const [galleryImages, setGalleryImages] = useState([]);
   const [uploadedImages, setUploadedImages] = useState(Array(18).fill(null)); //max 18 images - section gallery
   const [selectedCategoryId, setSelectedCategoryId] = useState(1);
+  const [aboutCineSuntem, setAboutCineSuntem] = useState("");
+  const [aboutCeFacem, setAboutCeFacem] = useState("");
+  const [aboutCareEsteScopul, setAboutCareEsteScopul] = useState("");
+  const [isEditPopupVisible, setIsEditPopupVisible] = useState(false);
+
+  const toggleEditPopup = () => {
+    setIsEditPopupVisible(!isEditPopupVisible);
+  };
 
   // For image uploading
   const [profileImage, setProfileImage] = useState(null);
@@ -51,7 +61,6 @@ export default function AccountConfiguration() {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [4, 3],
       quality: 1,
     });
 
@@ -84,9 +93,65 @@ export default function AccountConfiguration() {
     setGalleryImages([...galleryImages, image]);
   }
 
+  const navigation = useNavigation();
   function onSave() {
-    // Save data
+    saveData();
+    navigation.navigate("BusinessUserInfo");
   }
+
+  async function saveData() {
+    const businessData = {
+      title,
+      category,
+      subCategory,
+      phoneNumbers,
+      email,
+      profileImage,
+      coverImage,
+      galleryImages,
+      aboutCineSuntem,
+      aboutCeFacem,
+      aboutCareEsteScopul,
+    };
+
+    try {
+      await AsyncStorage.setItem("businessData", JSON.stringify(businessData));
+      console.log("Data saved successfully");
+    } catch (error) {
+      console.error("Error saving data:", error);
+    }
+  }
+
+  async function loadData() {
+    try {
+      const savedData = await AsyncStorage.getItem("businessData");
+      if (savedData !== null) {
+        const businessData = JSON.parse(savedData);
+        console.log("Loaded data:", businessData);
+
+        setTitle(businessData.title || "");
+        setCategory(businessData.category || "");
+        setSubCategory(businessData.subCategory || "");
+        setPhoneNumbers(businessData.phoneNumbers || [""]);
+        setEmail(businessData.email || "");
+        setProfileImage(businessData.profileImage || null);
+        setCoverImage(businessData.coverImage || null);
+        setGalleryImages(businessData.galleryImages || []);
+
+        setAboutCineSuntem(businessData.aboutCineSuntem || "");
+        setAboutCeFacem(businessData.aboutCeFacem || "");
+        setAboutCareEsteScopul(businessData.aboutCareEsteScopul || "");
+      } else {
+        console.log("No data found");
+      }
+    } catch (error) {
+      console.error("Error loading data:", error);
+    }
+  }
+
+  useEffect(() => {
+    loadData();
+  }, []);
 
   // deletes an image
   function deleteGalleryImage(index) {
@@ -99,7 +164,7 @@ export default function AccountConfiguration() {
       <View style={styles.backButtonContainer}>
         <TouchableOpacity
           onPress={() => {
-            /* Add your navigation logic here */
+            navigation.navigate("HomeScreen");
           }}
         >
           <MaterialCommunityIcons name="arrow-left" size={29} color="black" />
@@ -165,12 +230,18 @@ export default function AccountConfiguration() {
 
         <View style={styles.aboutSection}>
           <Text style={styles.leftAlignedText}>Despre</Text>
-          <TouchableOpacity style={styles.addButton} onPress={handleOpenPopup}>
+          <TouchableOpacity style={styles.addButton} onPress={toggleEditPopup}>
             <Text style={styles.leftAlignedText}>Adaugă</Text>
           </TouchableOpacity>
           <EditPopup
-            isVisible={modalVisible}
-            onClose={() => setModalVisible(false)}
+            isVisible={isEditPopupVisible}
+            onClose={toggleEditPopup}
+            cineSuntem={aboutCineSuntem}
+            setCineSuntem={setAboutCineSuntem}
+            ceFacem={aboutCeFacem}
+            setCeFacem={setAboutCeFacem}
+            careEsteScopul={aboutCareEsteScopul}
+            setCareEsteScopul={setAboutCareEsteScopul}
           />
         </View>
         <Text style={styles.adviceText}>
@@ -287,6 +358,7 @@ export default function AccountConfiguration() {
             </View>
           ))}
         </View>
+        <View style={styles.separator} />
         <TouchableOpacity onPress={onSave} style={styles.saveButton}>
           <Text style={styles.saveButtonText}>Salvează</Text>
         </TouchableOpacity>
@@ -355,6 +427,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     resizeMode: "cover",
+    borderRadius: 9,
   },
   uploadCoverImageButton: {
     width: "100%",
@@ -366,6 +439,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     resizeMode: "cover",
+    borderRadius: 9,
   },
   uploadIconContainer: {
     flexDirection: "row",

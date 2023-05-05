@@ -10,6 +10,9 @@ import BottomTabNavigator from './screens/appNavigator';
 import mapViewScreen from './screens/mapViewScreen';
 import CategoriesScreen from './screens/categoriesScreen';
 import HomeScreen from './screens/homeScreen';
+import BusinessUserInfo from './screens/businessUserInfo';
+import BusinessInfoView from './screens/businessInfoView';
+import BusinessList from './screens/businessList'
 
 
 
@@ -29,6 +32,10 @@ export default function App() {
         <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="mapViewScreen" component={mapViewScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AccountQ" component={AccountQ} options={{ headerShown: false }} />
+        <Stack.Screen name="BusinessUserInfo" component={BusinessUserInfo} options={{ headerShown: false }} />
+        {/* <Stack.Screen name="BusinessInfoView" component={BusinessInfoView} options={{ headerShown: false }} />  */}
+        {/* <Stack.Screen name="BusinessList" component={BusinessList} options={{ headerShown: false }} /> */}
+
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,49 +1,38 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Polygon } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 
-
-
-const MoldovaMap = () => {
+const MapViewScreen = () => {
   return (
-    <MapView
-      provider={PROVIDER_GOOGLE}
-      style={styles.map}
-      initialRegion={{
-        latitude: 47.411631,
-        longitude: 28.369885,
-        latitudeDelta: 2.2,
-        longitudeDelta: 2.2,
-      }}
-      minZoomLevel={7}
-      maxZoomLevel={16}
-      scrollEnabled={true}
-      zoomEnabled={true}
-      zoomTapEnabled={true}
-      zoomControlEnabled={true}
-      showsUserLocation={true}
-    >
-    </MapView>
+    <View style={styles.container}>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: 47.036833,
+          longitude: 28.830962,
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        }}
+      >
+        <Marker
+          coordinate={{ latitude: 47.036833, longitude: 28.830962 }}
+          title={'Tekwill'}
+          description={'National ICT Excellence Center'}
+        />
+      </MapView>
+    </View>
   );
 };
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <MoldovaMap />
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   map: {
-    width: '100%',
-    height: '100%',
+    ...StyleSheet.absoluteFillObject,
   },
 });
+
+export default MapViewScreen;

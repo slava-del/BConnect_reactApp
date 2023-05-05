@@ -22,7 +22,6 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-
 export default function App() {
   const [expandedCategories, setExpandedCategories] = useState([]);
 
@@ -155,3 +154,4 @@ styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+

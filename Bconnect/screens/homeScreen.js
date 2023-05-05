@@ -42,7 +42,7 @@ const CardSections = () => {
                       <Text style={styles.buttonText}>Locație</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.callButton}>
-                      {/* <MaterialCommunityIcons name="phone" size={18} color="#00273D" /> */}
+                      <MaterialCommunityIcons name="information" size={18} color="#00273D" />
                       <Text style={styles.buttonText}>Detalii</Text>
                     </TouchableOpacity>
                   </View>
@@ -142,7 +142,7 @@ const styles = {
     paddingHorizontal: 20,
     paddingVertical: 5,
     height: 30,
-    minWidth: 110,
+    minWidth: 150,
     marginHorizontal: 2.5,
   },
   locationButton: {
@@ -154,7 +154,7 @@ const styles = {
     paddingHorizontal: 20,
     paddingVertical: 5,
     height: 30,
-    minWidth: 190,
+    minWidth: 150,
     marginHorizontal: 2.5,
   },
   buttonText: {
