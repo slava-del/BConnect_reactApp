@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Card, Title, Paragraph } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import businessesData from "../data/businessesData";
 
 const BusinessCard = ({ business, onPress }) => {
@@ -37,6 +38,9 @@ const BusinessList = () => {
 
   return (
     <View style={styles.pageContainer}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("CategoriesScreen")}>
+        <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
+      </TouchableOpacity>
       <FlatList
         data={businessesData}
         renderItem={({ item }) => (
@@ -61,6 +65,15 @@ const styles = StyleSheet.create({
   },
   container: {
     padding: 10,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 40, 
+    left: 18, 
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#E3EAEC', 
+    zIndex: 1,
   },
   card: {
     marginBottom: 20,

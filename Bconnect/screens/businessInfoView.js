@@ -71,7 +71,7 @@
 
 // export default BusinessInfo;
 
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import {
   View,
   ScrollView,
@@ -80,27 +80,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { MaterialIcons } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import businessesData from '../data/businessesData';
+} from "react-native";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import businessesData from "../data/businessesData";
 
 const BusinessInfo = ({ route }) => {
   const { business } = route.params;
   const filteredData = businessesData.find((item) => item.id === business.id);
-  const {
-    coverImage,
-    logo,
-    title,
-    phoneNumbers,
-    email,
-    textCineSuntem,
-    textCeFacem,
-    textCareEsteScopulNostru,
-    images,
-    useState
-  } = filteredData;
 
   // for image open
   const [selectedImage, setSelectedImage] = useState(null);
@@ -114,35 +101,29 @@ const BusinessInfo = ({ route }) => {
   // for navigation thru screens
   const navigation = useNavigation();
 
-
   return (
     <View>
-      {/* Section 1: Back button */}
-      <View style={styles.backButtonContainer}>
-        <TouchableOpacity onPress={() => console.log("Go back")}>
-          <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
-
       <ScrollView>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("BusinessList")}>
+        <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
+      </TouchableOpacity>
         {/* Section 2: Background image and logo */}
         <View style={styles.backgroundImageContainer}>
-          {coverImage && (
+          {filteredData.coverImage && (
             <TouchableOpacity
-              onPress={() => openImage(coverImage)}
+              onPress={() => openImage(filteredData.coverImage)}
             >
+              
               <Image
-                source={{ uri: coverImage }}
+                source={{ uri: filteredData.coverImage }}
                 style={styles.backgroundImage}
               />
             </TouchableOpacity>
           )}
-          {logo && (
-            <TouchableOpacity
-              onPress={() => openImage(logo)}
-            >
+          {filteredData.logo && (
+            <TouchableOpacity onPress={() => openImage(filteredData.logo)}>
               <Image
-                source={{ uri: logo }}
+                source={{ uri: filteredData.logo }}
                 style={styles.logoImage}
               />
             </TouchableOpacity>
@@ -151,8 +132,8 @@ const BusinessInfo = ({ route }) => {
 
         {/* Section 3: Title */}
         <View style={styles.titleContainer}>
-          {title && (
-            <Text style={styles.title}>{title}</Text>
+          {filteredData.title && (
+            <Text style={styles.title}>{filteredData.title}</Text>
           )}
         </View>
 
@@ -163,17 +144,17 @@ const BusinessInfo = ({ route }) => {
             <Text style={styles.contactTitle}>Date de contact</Text>
             <View style={styles.phoneContainer}>
               <MaterialCommunityIcons name="phone" size={24} color="black" />
-              {phoneNumbers &&
-                phoneNumbers.map((number, index) => (
+              {filteredData.phoneNumbers &&
+                filteredData.phoneNumbers.map((number, index) => (
                   <Text key={index} style={styles.phoneNumber}>
                     {number}
                   </Text>
                 ))}
             </View>
-            {email && (
+            {filteredData.email && (
               <View style={styles.emailContainer}>
                 <MaterialCommunityIcons name="email" size={24} color="black" />
-                <Text style={styles.email}>{email}</Text>
+                <Text style={styles.email}>{filteredData.email}</Text>
               </View>
             )}
           </View>
@@ -181,26 +162,28 @@ const BusinessInfo = ({ route }) => {
           {/* Section 5: About us */}
           <View style={styles.contactContainer}>
             <Text style={styles.aboutTitle}>Cine suntem?</Text>
-            <Text style={styles.aboutText}>{textCineSuntem}</Text>
+            <Text style={styles.aboutText}>{filteredData.textCineSuntem}</Text>
 
             <Text style={styles.aboutTitle}>Ce facem?</Text>
-            <Text style={styles.aboutText}>{textCeFacem}</Text>
+            <Text style={styles.aboutText}>{filteredData.textCeFacem}</Text>
 
             <Text style={styles.aboutTitle}>Care este scopul nostru?</Text>
-            <Text style={styles.aboutText}>{textCareEsteScopulNostru}</Text>
+            <Text style={styles.aboutText}>
+              {filteredData.textCareEsteScopulNostru}
+            </Text>
           </View>
           {/* Section 6: Gallery */}
           <View style={styles.contactContainer}>
             <Text style={styles.galleryTitle}>Galerie</Text>
             <View style={styles.galleryImagesContainer}>
-              {galleryImages &&
-                galleryImages.map((images, index) => (
+              {filteredData.images &&
+                filteredData.images.map((image, index) => (
                   <TouchableOpacity
                     key={index}
-                    onPress={() => openImage(images)}
+                    onPress={() => openImage(image)}
                   >
                     <Image
-                      source={{ uri: images }}
+                      source={{ uri: image }}
                       style={styles.galleryImage}
                     />
                   </TouchableOpacity>
@@ -209,7 +192,7 @@ const BusinessInfo = ({ route }) => {
           </View>
         </View>
 
-        {/* Full-screen image modal */}
+        {/* Full-screen image modal*/}
         <Modal
           visible={!!selectedImage}
           onRequestClose={closeImage}
@@ -229,10 +212,20 @@ const BusinessInfo = ({ route }) => {
       </ScrollView>
     </View>
   );
-}
+};
+
 export default BusinessInfo;
 
 const styles = StyleSheet.create({
+  backButton: {
+    position: 'absolute',
+    top: 40, 
+    left: 10, 
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#E3EAEC', 
+    zIndex: 1,
+  },
   backgroundImageContainer: {
     position: "relative",
     height: 250,

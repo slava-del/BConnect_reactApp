@@ -33,8 +33,8 @@ export default function App() {
         <Stack.Screen name="mapViewScreen" component={mapViewScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AccountQ" component={AccountQ} options={{ headerShown: false }} />
         <Stack.Screen name="BusinessUserInfo" component={BusinessUserInfo} options={{ headerShown: false }} />
-        {/* <Stack.Screen name="BusinessInfoView" component={BusinessInfoView} options={{ headerShown: false }} />  */}
-        {/* <Stack.Screen name="BusinessList" component={BusinessList} options={{ headerShown: false }} /> */}
+        <Stack.Screen name="BusinessInfoView" component={BusinessInfoView} options={{ headerShown: false }} /> 
+        <Stack.Screen name="BusinessList" component={BusinessList} options={{ headerShown: false }} />
 
       </Stack.Navigator>
     </NavigationContainer>

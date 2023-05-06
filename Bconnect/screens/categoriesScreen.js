@@ -12,6 +12,7 @@ import {
   Image,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import SearchBar from "../components/searchBar";
 import categoriesData from '../data/categoriesData'
 
@@ -24,6 +25,8 @@ if (
 
 export default function App() {
   const [expandedCategories, setExpandedCategories] = useState([]);
+
+  const navigation = useNavigation();
 
   const toggleCategory = (categoryId) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -82,8 +85,8 @@ export default function App() {
                     <TouchableOpacity
                       key={index}
                       onPress={() => {
-                        console.log("Subcategory pressed:", subcategory);
-                        // Handle subcategory press event here
+                        // console.log("Subcategory pressed:", subcategory);
+                        navigation.navigate("BusinessList")
                       }}
                       style={styles.subcategoryButton}
                     >

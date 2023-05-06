@@ -43,9 +43,9 @@ import { Text, View } from 'react-native';
 
 const UnavailablePage = () => {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 10, }}>
       <Text style={{ textAlign: 'center' }}>
-        Înca nu este disponibilă această funcțiune, lucrăm la ea...
+        Înca nu este disponibilă această funcție, lucrăm la ea...
       </Text>
     </View>
   );
