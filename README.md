@@ -1,9 +1,12 @@
 Proiect BConnect
+
+
 Bun venit în repositoriul GitHub al proiectului nostru cu tematica Dezvoltarea aplicațiilor mobile! Acest proiect conține un folder cu codul sursă al aplicației, precum și un fișier APK pentru a facilita instalarea și testarea aplicației pe dispozitive Android.
 
 Structura Proiectului
 📁 Bconnect: Acest folder conține toate fișierele și componentele necesare pentru a construi aplicația.
 📄 application-3cf8c24a-7db8-41b3-82d1-e04a0c4b7078.apk: Fișierul APK care poate fi instalat pe dispozitivele Android pentru a testa și utiliza aplicația.
+
 
 Tehnologii și Instrumente
 Proiectul a fost dezvoltat folosind următoarele tehnologii și instrumente:
@@ -11,6 +14,7 @@ Proiectul a fost dezvoltat folosind următoarele tehnologii și instrumente:
 Visual Studio Code: Editorul de cod utilizat pentru a edita și dezvolta aplicația.
 React Native: O bibliotecă JavaScript pentru a construi aplicații mobile native folosind React.
 Expo CLI: Un utilitar de linie de comandă care facilitează dezvoltarea și testarea aplicațiilor React Native.
+
 
 Instalare și Rulare
 
