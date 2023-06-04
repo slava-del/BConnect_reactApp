@@ -6,7 +6,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import OnboardingSt from '../screens/onboardingStart';
 import OnboardingTr from '../screens/onboardingTr';
 import OnboardingFinal from '../screens/onboardingFinal';
-import PopupReg from '../screens/popupRegister';
 import AccountQ from '../screens/accountQ';
 import MapViewScreen from '../screens/mapViewScreen';
 import CategoriesScreen from '../screens/categoriesScreen';
@@ -27,7 +26,6 @@ export default function MainStackNavigator() {
         <Stack.Screen name="OnboardingSt" component={OnboardingSt} options={{ headerShown: false }} />
         <Stack.Screen name="OnboardingTr" component={OnboardingTr} options={{ headerShown: false }} />
         <Stack.Screen name="OnboardingFinal" component={OnboardingFinal} options={{ headerShown: false }} />
-        <Stack.Screen name="PopupReg" component={PopupReg} options={{ headerShown: false }} />
         <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} options={{ headerShown: false }} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
@@ -40,3 +38,4 @@ export default function MainStackNavigator() {
     </NavigationContainer>
   );
 }
+

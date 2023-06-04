@@ -5,11 +5,11 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-
 
 const MyPopup = (props) => {
   const [name, setName] = useState("");
@@ -17,26 +17,9 @@ const MyPopup = (props) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [passwordAccepted, setPasswordAccepted] = useState(false);
-  const [passwordTyped, setPasswordTyped] = useState(false);
-  const [buttonVisible, setButtonVisible] = useState(true);
-
-
-  const handleInputFocus = () => {
-    setButtonVisible(false);
-  };
-  const handleInputBlur = () => {
-    setButtonVisible(true);
-  };
 
   const handlePasswordChange = (text) => {
     setPassword(text);
-    setPasswordTyped(true);
-    if (text.length >= 8 && /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(text)) {
-      setPasswordAccepted(true);
-    } else {
-      setPasswordAccepted(false);
-    }
   };
 
   const handleClose = () => {
@@ -46,152 +29,121 @@ const MyPopup = (props) => {
     setPhoneNumber("");
     setPassword("");
     setShowPassword(false);
-    setPasswordAccepted(false);
-    setPasswordTyped(false);
   };
 
   const navigation = useNavigation();
 
   return (
     <Modal visible={props.isVisible} animationType="slide" transparent={true}>
-      <KeyboardAvoidingView style={styles.centerContainer} behavior="padding">
-        <Text style={styles.title}>Înregistrare</Text>
-        <TouchableOpacity
-          onPress={handleClose}
-          style={[
-            styles.closeButton,
-            {
-              position: "absolute",
-              right: 10,
-              top: 27,
-            },
-          ]}
-        >
-          <Ionicons name="close" size={24} color="#000" />
-        </TouchableOpacity>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Nume</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="ex: Business Connection"
-            value={name}
-            onChangeText={setName}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Email</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="ex: bconnect@gmail.com"
-            value={email}
-            onChangeText={setEmail}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Telefon</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Nr. de telefon"
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
-            onFocus={handleInputFocus}
-            onBlur={handleInputBlur}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.inputTitle}>Parolă</Text>
-          <View style={{ flexDirection: "row" }}>
-            <TextInput
-              style={[styles.input, { flex: 1 }]}
-              placeholder="Parola ta"
-              secureTextEntry={!showPassword}
-              value={password}
-              onChangeText={handlePasswordChange}
-              onFocus={handleInputFocus}
-              onBlur={handleInputBlur}
-            />
-            <TouchableOpacity
-              onPress={() => setShowPassword(!showPassword)}
-              style={[
-                styles.showPasswordButton,
-                {
-                  position: "absolute",
-                  top: "50%",
-                  transform: [{ translateY: -13 }],
-                  right: 10,
-                },
-              ]}
-            >
-              <Ionicons
-                name={showPassword ? "eye-off" : "eye"}
-                size={24}
-                color="#777"
-              />
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.modalContent}>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>Înregistrare</Text>
+            <TouchableOpacity onPress={handleClose} style={styles.closeButton}>
+              <Ionicons name="close" size={24} color="#000" />
             </TouchableOpacity>
           </View>
-          {passwordTyped && !passwordAccepted && (
-            <Text style={styles.warningText}>
-              Parola trebuie să conțină cel puțin 8 caractere și cel puțin un
-              caracter special
-            </Text>
-          )}
-          {passwordTyped && passwordAccepted && (
-            <Text style={styles.acceptedText}>Parola acceptată</Text>
-          )}
-        </View>
-        {buttonVisible && (
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputTitle}>Nume</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="ex: Business Connection"
+              value={name}
+              onChangeText={setName}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputTitle}>Email</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="ex: bconnect@gmail.com"
+              value={email}
+              onChangeText={setEmail}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputTitle}>Telefon</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Nr. de telefon"
+              value={phoneNumber}
+              onChangeText={setPhoneNumber}
+              keyboardType="numeric"
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputTitle}>Parolă</Text>
+            <View style={styles.passwordContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Parola ta"
+                secureTextEntry={!showPassword}
+                value={password}
+                onChangeText={handlePasswordChange}
+              />
+              <TouchableOpacity
+                onPress={() => setShowPassword(!showPassword)}
+                style={styles.showPasswordButton}
+              >
+                <Ionicons
+                  name={showPassword ? "eye-off" : "eye"}
+                  size={24}
+                  color="#777"
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("BottomTabNavigator", { screen: "Home" })
             }
-            style={[styles.button, { marginTop: 32 }]}
+            style={styles.button}
           >
             <Text style={styles.buttonText}>Înregistrează-te</Text>
           </TouchableOpacity>
-        )}
-      </KeyboardAvoidingView>
+        </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };
 
-export default MyPopup;
-
 const styles = {
-  container: {
-    flex: 1,
-    alignItems: "center",
-    backgroundColor: "#fff",
-    marginTop: 50,
-  },
-  centerContainer: {
+  modalContent: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
+  },
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 50,
+    width: "100%",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    flex: 1,
+    textAlign: "center",
+  },
+  closeButton: {
+    position: "absolute",
+    right: 10,
   },
   button: {
-    width: "65%",
+    width: "75%",
     backgroundColor: "#3F95EB",
     height: 50,
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    position: "absolute",
-    bottom: 80,
+    marginTop: 100,
   },
   buttonText: {
     color: "#fff",
     fontSize: 15,
     fontWeight: "bold",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 10,
   },
   inputContainer: {
     marginBottom: 10,
@@ -203,13 +155,23 @@ const styles = {
     marginBottom: 5,
   },
   input: {
+    width: "100%",
     backgroundColor: "#f2f2f2",
-    borderRadius: 5,
+    borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 15,
     fontSize: 16,
     textAlign: "left",
     fontStyle: "italic",
+  },
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  showPasswordButton: {
+    marginLeft: 10,
   },
   warningText: {
     color: "red",
@@ -220,3 +182,5 @@ const styles = {
     marginTop: 8,
   },
 };
+
+export default MyPopup;
