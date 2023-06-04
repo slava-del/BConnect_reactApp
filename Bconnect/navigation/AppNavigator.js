@@ -12,8 +12,9 @@ import CategoriesScreen from '../screens/categoriesScreen';
 import HomeScreen from '../screens/homeScreen';
 import BusinessUserInfo from '../screens/businessUserInfo';
 import BusinessInfoView from '../screens/businessInfoView';
-import BusinessList from '../screens/businessList'
-import BottomTabNavigator from '../components/navigationBar'
+import BusinessList from '../screens/businessList';
+import BottomTabNavigator from '../components/navigationBar';
+
 
 
 

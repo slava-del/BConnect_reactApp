@@ -17,9 +17,17 @@ const MyPopup = (props) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   const handlePasswordChange = (text) => {
     setPassword(text);
+    validatePassword(text);
+  };
+
+  const handleEmailChange = (text) => {
+    setEmail(text);
+    validateEmail(text);
   };
 
   const handleClose = () => {
@@ -29,6 +37,30 @@ const MyPopup = (props) => {
     setPhoneNumber("");
     setPassword("");
     setShowPassword(false);
+    setPasswordError("");
+    setEmailError("");
+  };
+
+  const validatePassword = (password) => {
+    const regex = /^(?=.*[!@#$%^&*]).{8,}$/;
+    const isValid = regex.test(password);
+    if (!isValid) {
+      setPasswordError(
+        "Parola trebuie să aibă cel puțin 8 caractere și să conțină un caracter special, cum ar fi !@#$%^&*"
+      );
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValid = regex.test(email);
+    if (!isValid) {
+      setEmailError("Te rog introdu o adresă de email validă");
+    } else {
+      setEmailError("");
+    }
   };
 
   const navigation = useNavigation();
@@ -55,11 +87,17 @@ const MyPopup = (props) => {
           <View style={styles.inputContainer}>
             <Text style={styles.inputTitle}>Email</Text>
             <TextInput
-              style={styles.input}
+              style={[
+                styles.input,
+                emailError ? styles.invalidInput : null,
+              ]}
               placeholder="ex: bconnect@gmail.com"
               value={email}
-              onChangeText={setEmail}
+              onChangeText={handleEmailChange}
             />
+            {emailError ? (
+              <Text style={styles.warningText}>{emailError}</Text>
+            ) : null}
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.inputTitle}>Telefon</Text>
@@ -75,7 +113,10 @@ const MyPopup = (props) => {
             <Text style={styles.inputTitle}>Parolă</Text>
             <View style={styles.passwordContainer}>
               <TextInput
-                style={styles.input}
+                style={[
+                  styles.input,
+                  passwordError ? styles.invalidInput : null,
+                ]}
                 placeholder="Parola ta"
                 secureTextEntry={!showPassword}
                 value={password}
@@ -92,6 +133,9 @@ const MyPopup = (props) => {
                 />
               </TouchableOpacity>
             </View>
+            {passwordError ? (
+              <Text style={styles.warningText}>{passwordError}</Text>
+            ) : null}
           </View>
           <TouchableOpacity
             onPress={() =>
@@ -171,14 +215,15 @@ const styles = {
     width: "100%",
   },
   showPasswordButton: {
-    marginLeft: 10,
+    position: "absolute",
+    right: 10,
+  },
+  invalidInput: {
+    borderColor: "red",
+    borderWidth: 1,
   },
   warningText: {
     color: "red",
-    marginTop: 8,
-  },
-  acceptedText: {
-    color: "green",
     marginTop: 8,
   },
 };
