@@ -2,11 +2,23 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import PopupReg from './popupRegister';
+import PopupLog from './popupLog';
 
 import backgroundImage from '../assets/backgroundOnSt.jpg';
 
 export default function App() {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [regModalVisible, setRegModalVisible] = useState(false);
+  const [logModalVisible, setLogModalVisible] = useState(false);
+
+  const handleLoginClick = () => {
+    setRegModalVisible(false);
+    setLogModalVisible(true);
+  };
+
+  const handleRegisterClick = () => {
+    setLogModalVisible(false);
+    setRegModalVisible(true);
+  };
 
   return (
     <ImageBackground 
@@ -16,35 +28,35 @@ export default function App() {
     >
 
       <StatusBar style="auto" />
-      
-      { !modalVisible && (
-        <Text style={styles.firstText}>Alătură-te comunității noastre de utilizatori</Text>
-      )}
-      
-      { !modalVisible && (
-        <Text style={styles.secondText}>
-          Descoperă cele mai bune afaceri locale din Republica Moldova
-        </Text>
-      )}
-      
-      { !modalVisible && (
-        <Text style={styles.thirdText}>
-          Simplu și ușor
-        </Text>
-      )}
 
-      { !modalVisible && (
-        <TouchableOpacity
-          style={styles.exploreBtn}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={styles.exploreBtnTxt}>Înregistrează-te</Text>
-        </TouchableOpacity>
+      { !regModalVisible && !logModalVisible && (
+        <>
+          <Text style={styles.firstText}>Alătură-te comunității noastre de utilizatori</Text>
+          <Text style={styles.secondText}>
+            Descoperă cele mai bune afaceri locale din Republica Moldova
+          </Text>
+          <Text style={styles.thirdText}>
+            Simplu și ușor
+          </Text>
+          <TouchableOpacity
+            style={styles.exploreBtn}
+            onPress={() => setRegModalVisible(true)}
+          >
+            <Text style={styles.exploreBtnTxt}>Înregistrează-te</Text>
+          </TouchableOpacity>
+        </>
       )}
 
       <PopupReg
-        isVisible={modalVisible}
-        onClose={() => setModalVisible(false)}
+        isVisible={regModalVisible}
+        onClose={() => setRegModalVisible(false)}
+        onLoginClick={handleLoginClick}
+      />
+
+      <PopupLog
+        isVisible={logModalVisible}
+        onClose={() => setLogModalVisible(false)}
+        onRegisterClick={handleRegisterClick}
       />
     </ImageBackground>
   );
