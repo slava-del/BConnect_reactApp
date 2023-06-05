@@ -29,8 +29,14 @@ const BusinessCard = ({ business, onPress }) => {
   );
 };
 
-const BusinessList = () => {
+const BusinessList = ({ route }) => {
   const navigation = useNavigation();
+  const subcategory = route.params?.subcategory || '';
+
+  // Business filtering
+  const businesses = businessesData.filter(business =>
+    business.category.subcategory === subcategory
+  );
 
   const handleCardPress = (business) => {
     navigation.navigate("BusinessInfoView", { business });
@@ -38,11 +44,11 @@ const BusinessList = () => {
 
   return (
     <View style={styles.pageContainer}>
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("CategoriesScreen")}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("BottomTabNavigator", { screen: "CategoriesScreen" })}>
         <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
       </TouchableOpacity>
       <FlatList
-        data={businessesData}
+        data={businesses}
         renderItem={({ item }) => (
           <BusinessCard
             key={item.id}
@@ -68,11 +74,11 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 40, 
-    left: 18, 
+    top: 40,
+    left: 18,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: '#E3EAEC', 
+    backgroundColor: '#E3EAEC',
     zIndex: 1,
   },
   card: {

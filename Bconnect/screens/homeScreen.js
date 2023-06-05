@@ -56,6 +56,10 @@ const CardSections = () => {
   );
 };
 
+
+export default CardSections;
+
+
 const styles = {
   container: {
     flex: 1,
@@ -68,17 +72,17 @@ const styles = {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 10, 
-    paddingLeft: 20, // added padding to create space between screen edge and content
+    paddingLeft: 20, 
   },
   logo: {
-    marginRight: 10, // added margin to create space between logo and text
+    marginRight: 10, 
     width: 20, 
     height: 20, 
   },
   fixedText: {
     fontSize: 18, 
     fontWeight: "bold", 
-    textAlign: "left", // aligns text to the left of screen
+    textAlign: "left", 
   },
 
   section: {
@@ -166,4 +170,3 @@ const styles = {
   },
 };
 
-export default CardSections;

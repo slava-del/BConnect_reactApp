@@ -1,5 +1,3 @@
-
-
 const categoriesData = [
   {
     id: 1,

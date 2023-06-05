@@ -83,15 +83,14 @@ export default function App() {
                 <View style={styles.subcategoriesContainer}>
                   {category.subcategories.map((subcategory, index) => (
                     <TouchableOpacity
-                      key={index}
-                      onPress={() => {
-                        // console.log("Subcategory pressed:", subcategory);
-                        navigation.navigate("BusinessList")
-                      }}
-                      style={styles.subcategoryButton}
-                    >
-                      <Text style={styles.subcategoryText}>{subcategory}</Text>
-                    </TouchableOpacity>
+                    key={index}
+                    onPress={() => {
+                      navigation.navigate("BusinessList", { subcategory: subcategory })
+                    }}
+                    style={styles.subcategoryButton}
+                  >
+                    <Text style={styles.subcategoryText}>{subcategory}</Text>
+                  </TouchableOpacity>
                   ))}
                 </View>
               )}

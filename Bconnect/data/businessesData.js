@@ -1,6 +1,10 @@
 const businessesData = [
   {
     id: 1,
+    category: {
+      title: "Construcții",
+      subcategory: "Mobilier și lenjerie de casă",
+    },
     logo: "https://libercard.md/storage/partner/July2020/Vl8JQjQCqLphyYuOxGSi.png",
     title: "Rimobil",
     coverImage:
@@ -10,9 +14,8 @@ const businessesData = [
     email: "rimobil@gmail.com",
     textCineSuntem:
       "Rimobil este unul dintre cei mai apreciați producători de mobilă de bucătărie din Moldova, recunoscut pentru calitatea, funcționalitatea și designul inovator al produselor sale. Compania noastră are o experiență bogată în domeniul amenajărilor interioare, specializându-se în crearea de soluții de mobilier adaptate nevoilor și preferințelor clienților săi.",
-      textCeFacem:
+    textCeFacem:
       "La Rimobil, oferim o gamă diversă de modele de bucătării, de la stiluri clasice până la cele moderne și minimaliste. Folosim materiale de înaltă calitate și ne asigurăm că fiecare bucătărie este personalizată în funcție de cerințele și dorințele fiecărui client. Ne ocupăm de tot procesul, de la proiectare și consultanță până la fabricație și montaj, pentru a vă oferi o experiență fără griji în amenajarea bucătăriei dorite.",
-    
     textCareEsteScopulNostru:
       "Scopul nostru este de a ajuta oamenii să își transforme bucătăria într-un spațiu funcțional, estetic și plăcut, care să reflecte personalitatea și stilul de viață al proprietarilor. Ne dedicăm inovației și dezvoltării de soluții și produse care să îmbunătățească eficiența, confortul și durabilitatea bucătăriilor noastre. De asemenea, ne angajăm să oferim un serviciu de excepție, bazat pe consultanță și suport de specialitate în toate etapele procesului de achiziție și montare a mobilierului de bucătărie.",
     images: [
@@ -26,6 +29,10 @@ const businessesData = [
   },
   {
     id: 2,
+    category: {
+      title: "Retail & Comercianți",
+      subcategory: "Comercianți în general, depozite angro și magazine de vânzare cu amănuntul",
+    },
     title: "Giant",
     logo: "https://logowik.com/content/uploads/images/giant-bicycles-new-20202103.jpg",
     coverImage:
@@ -48,6 +55,10 @@ const businessesData = [
   },
   {
     id: 3,
+    category: {
+      title: "Construcții",
+      subcategory: "Construcții metalice pentru industria construcțiilor",
+    },
     logo: "https://www.metancor.md/wa-data/public/site/themes/vivashop/img/logo.png?v1678720981",
     title: "Metancor",
     coverImage: "https://i.ytimg.com/vi/diwM3zgsoW0/maxresdefault.jpg",
@@ -59,7 +70,7 @@ const businessesData = [
     textCeFacem:
       "Producem o gamă largă de biciclete, incluzând biciclete de munte, de drum, urbane, electrice și pentru copii. Oferim, de asemenea, componente, accesorii și echipamente pentru ciclism, pentru a asigura că cicliștii au tot ce le trebuie pentru a se bucura de experiența de pedalare.",
     textCareEsteScopulNostru:
-      "Misiunea noastră este de a crea produse inovatoare și de calitate care să inspire oamenii să aleagă bicicleta ca mijloc de transport și recreere. Ne dedicăm dezvoltării unor tehnologii avansate care să îmbunătățească performanța, siguranța și plăcerea cicliștilor, și de a promova un stil de viață activ și sănătos în rândul tuturor.",
+      "Misiunea noastră este de a crea produse inovatoare și de calitate care să inspire oamenii să aleagă bicicleta ca mijloc de transport și recreere. Ne dedicăm dezvoltării unor tehnologii avansate care să îmbunătățească performanța, siguranța și plăcerea bicicliștilor, și de a promova un stil de viață activ și sănătos în rândul tuturor.",
     images: [
       "https://stroyka.md/images/companies/galleries/metancor-com-srl/01_metancor-com.jpg",
       "https://www.metancor.md/wa-data/public/shop/img/trr.jpg",
@@ -71,6 +82,10 @@ const businessesData = [
   },
   {
     id: 4,
+    category: {
+      title: "Retail & Comercianți",
+      subcategory: "Comercianți în general, depozite angro și magazine de vânzare cu amănuntul",
+    },
     logo: "https://theloamwolf.com/wp-content/uploads/2020/04/trek-logo.jpg",
     title: "Trek Bicycles",
     coverImage:
@@ -93,6 +108,10 @@ const businessesData = [
   },
   {
     id: 5,
+    category: {
+      title: "Retail & Comercianți",
+      subcategory: "Comercianți în general, depozite angro și magazine de vânzare cu amănuntul",
+    },
     logo: "https://i.pinimg.com/originals/4c/4d/02/4c4d027ae1bf4b73104a5af660684977.png",
     title: "Specialized",
     coverImage:

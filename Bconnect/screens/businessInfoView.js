@@ -1,76 +1,3 @@
-// import React from 'react';
-// import { View, Text, Image, StyleSheet } from 'react-native';
-// import businessesData from '../data/businessesData';
-
-// const BusinessInfo = ({ route }) => {
-//   const { business } = route.params;
-//   const filteredData = businessesData.find((item) => item.id === business.id);
-
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>{filteredData.title}</Text>
-//       <Image style={styles.logo} source={{ uri: filteredData.logo }} />
-//       <Image style={styles.coverImage} source={{ uri: filteredData.coverImage }} />
-//       <Text style={styles.sectionTitle}>Phone Numbers:</Text>
-//       {filteredData.phoneNumbers.map((phoneNumber, index) => (
-//         <Text key={index}>{phoneNumber}</Text>
-//       ))}
-//       <Text style={styles.sectionTitle}>Email:</Text>
-//       <Text>{filteredData.email}</Text>
-//       <Text style={styles.sectionTitle}>Cine Suntem:</Text>
-//       <Text>{filteredData.textCineSuntem}</Text>
-//       <Text style={styles.sectionTitle}>Ce Facem:</Text>
-//       <Text>{filteredData.textCeFacem}</Text>
-//       <Text style={styles.sectionTitle}>Care Este Scopul Nostru:</Text>
-//       <Text>{filteredData.textCareEsteScopulNostru}</Text>
-//       <Text style={styles.sectionTitle}>Images:</Text>
-//       <View style={styles.imagesContainer}>
-//         {filteredData.images.map((image, index) => (
-//           <Image key={index} style={styles.image} source={{ uri: image }} />
-//         ))}
-//       </View>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 10,
-//   },
-//   title: {
-//     fontSize: 24,
-//     fontWeight: 'bold',
-//     marginBottom: 10,
-//   },
-//   logo: {
-//     width: 100,
-//     height: 100,
-//     marginBottom: 10,
-//   },
-//   coverImage: {
-//     width: '100%',
-//     height: 200,
-//     marginBottom: 10,
-//   },
-//   sectionTitle: {
-//     fontWeight: 'bold',
-//     marginTop: 10,
-//   },
-//   imagesContainer: {
-//     flexDirection: 'row',
-//     flexWrap: 'wrap',
-//   },
-//   image: {
-//     width: 80,
-//     height: 80,
-//     marginRight: 5,
-//     marginTop: 5,
-//   },
-// });
-
-// export default BusinessInfo;
-
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -98,22 +25,22 @@ const BusinessInfo = ({ route }) => {
     setSelectedImage(null);
   };
 
-  // for navigation thru screens
+  // navigation
   const navigation = useNavigation();
 
   return (
     <View>
       <ScrollView>
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("BusinessList")}>
-        <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
-      </TouchableOpacity>
-        {/* Section 2: Background image and logo */}
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("BusinessList", { subcategory: filteredData.category.subcategory })}>
+          <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
+        </TouchableOpacity>
+        {/*Background image and logo */}
         <View style={styles.backgroundImageContainer}>
           {filteredData.coverImage && (
             <TouchableOpacity
               onPress={() => openImage(filteredData.coverImage)}
             >
-              
+
               <Image
                 source={{ uri: filteredData.coverImage }}
                 style={styles.backgroundImage}
@@ -130,7 +57,7 @@ const BusinessInfo = ({ route }) => {
           )}
         </View>
 
-        {/* Section 3: Title */}
+        {/* Title */}
         <View style={styles.titleContainer}>
           {filteredData.title && (
             <Text style={styles.title}>{filteredData.title}</Text>
@@ -139,7 +66,7 @@ const BusinessInfo = ({ route }) => {
 
         {/* Main Content Container */}
         <View style={styles.mainContentContainer}>
-          {/* Section 4: Contact information */}
+          {/* Contact information */}
           <View style={styles.contactContainer}>
             <Text style={styles.contactTitle}>Date de contact</Text>
             <View style={styles.phoneContainer}>
@@ -159,7 +86,7 @@ const BusinessInfo = ({ route }) => {
             )}
           </View>
 
-          {/* Section 5: About us */}
+          {/* About us */}
           <View style={styles.contactContainer}>
             <Text style={styles.aboutTitle}>Cine suntem?</Text>
             <Text style={styles.aboutText}>{filteredData.textCineSuntem}</Text>
@@ -172,7 +99,7 @@ const BusinessInfo = ({ route }) => {
               {filteredData.textCareEsteScopulNostru}
             </Text>
           </View>
-          {/* Section 6: Gallery */}
+          {/* Gallery */}
           <View style={styles.contactContainer}>
             <Text style={styles.galleryTitle}>Galerie</Text>
             <View style={styles.galleryImagesContainer}>
@@ -219,11 +146,11 @@ export default BusinessInfo;
 const styles = StyleSheet.create({
   backButton: {
     position: 'absolute',
-    top: 40, 
-    left: 10, 
+    top: 40,
+    left: 10,
     padding: 10,
     borderRadius: 10,
-    backgroundColor: '#E3EAEC', 
+    backgroundColor: '#E3EAEC',
     zIndex: 1,
   },
   backgroundImageContainer: {
