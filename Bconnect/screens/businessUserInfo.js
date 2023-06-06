@@ -13,6 +13,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
 export default function BusinessInfo() {
   const [businessData, setBusinessData] = useState({});
   const [aboutCineSuntem, setAboutCineSuntem] = useState("");
@@ -167,7 +168,7 @@ export default function BusinessInfo() {
       </ScrollView>
       {/* Section 7: Edit button */}
       <View style={styles.editButtonContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate("AccountQ")}>
+        <TouchableOpacity onPress={() => navigation.navigate("BottomTabNavigator", {screen: "AccountQ"})}>
           <MaterialCommunityIcons
             name="pencil"
             size={30}

@@ -146,7 +146,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeScreen from '../screens/homeScreen';
 import CategoriesScreen from '../screens/categoriesScreen';
 import MapViewScreen from '../screens/mapViewScreen';
-import AccountQ from '../screens/accountQ';
+import AccountScreen from '../screens/accountScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -205,7 +205,7 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="Acasă" component={HomeScreen} />
       <Tab.Screen name="Categorii" component={CategoriesScreen} />
       <Tab.Screen name="Hartă" component={MapViewScreen} />
-      <Tab.Screen name="Cont" component={AccountQ} />
+      <Tab.Screen name="Cont" component={AccountScreen} />
     </Tab.Navigator>
   );
 };

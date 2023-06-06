@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import OnboardingSt from '../screens/onboardingStart';
 import OnboardingTr from '../screens/onboardingTr';
 import OnboardingFinal from '../screens/onboardingFinal';
-import AccountQ from '../screens/accountQ';
+import AccountScreen from '../screens/accountScreen';
 import MapViewScreen from '../screens/mapViewScreen';
 import CategoriesScreen from '../screens/categoriesScreen';
 import HomeScreen from '../screens/homeScreen';
@@ -14,6 +14,7 @@ import BusinessUserInfo from '../screens/businessUserInfo';
 import BusinessInfoView from '../screens/businessInfoView';
 import BusinessList from '../screens/businessList';
 import BottomTabNavigator from '../components/navigationBar';
+import AccountQ from '../screens/accountQ';
 
 
 
@@ -31,6 +32,7 @@ export default function MainStackNavigator() {
         <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} options={{ headerShown: false }} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="MapViewScreen" component={MapViewScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="AccountScreen" component={AccountScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AccountQ" component={AccountQ} options={{ headerShown: false }} />
         <Stack.Screen name="BusinessUserInfo" component={BusinessUserInfo} options={{ headerShown: false }} />
         <Stack.Screen name="BusinessInfoView" component={BusinessInfoView} options={{ headerShown: false }} /> 
