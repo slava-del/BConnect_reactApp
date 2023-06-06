@@ -1,20 +1,41 @@
 import React from "react";
 import { ScrollView, View, Text, Image, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { cardSectionsData } from "../components/homeCardsData";
+import { useNavigation } from '@react-navigation/native';
+
+import businessesData from "../data/businessesData";
 
 const CardSections = () => {
+
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
-      
+
       <ScrollView vertical={true} showsVerticalScrollIndicator={false}>
-      
-      <View style={styles.logoTextContainer}>
-        <Image source={require('../assets/logo.png')} style={styles.logo} />
-        <Text style={styles.fixedText}>BConnect</Text>
-      </View>
-      
-        {cardSectionsData.map((section) => (
+
+        <View style={styles.logoTextContainer}>
+          <Image source={require('../assets/logo.png')} style={styles.logo} />
+          <Text style={styles.fixedText}>BConnect</Text>
+        </View>
+
+        {Object.entries(businessesData.reduce((sections, business) => {
+          const subcategory = business.category.subcategory;
+          if (!sections[subcategory]) {
+            sections[subcategory] = {
+              id: subcategory,
+              title: subcategory,
+              cards: []
+            }
+          }
+          sections[subcategory].cards.push({
+            id: business.id,
+            imageUrl: business.coverImage,
+            cardText: business.title,
+            cardDescription: business.greetText
+          });
+          return sections;
+        }, {})).map(([_, section]) => (
           <View key={section.id} style={styles.section}>
             <View style={styles.titleContainer}>
               <View style={styles.line}></View>
@@ -28,20 +49,21 @@ const CardSections = () => {
               {section.cards.map((card) => (
                 <View key={card.id} style={styles.card}>
                   <Image source={{ uri: card.imageUrl }} style={styles.image} />
-                  <Text style={styles.cardText}>{card.cardText}</Text>
-                  <Text style={styles.cardDescription}>
-                    {card.cardDescription}
-                  </Text>
+                  <View style={styles.textContainer}>
+                    <Text style={styles.cardText}>{card.cardText}</Text>
+                    <Text style={styles.cardDescription}>
+                      {card.cardDescription}
+                    </Text>
+                  </View>
                   <View style={styles.buttons}>
                     <TouchableOpacity style={styles.locationButton}>
-                      <MaterialCommunityIcons
-                        name="map-marker"
-                        size={18}
-                        color="#00273D"
-                      />
+                      <MaterialCommunityIcons name="map-marker" size={18} color="#00273D"/>
                       <Text style={styles.buttonText}>Locație</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.callButton}>
+                    <TouchableOpacity
+                      style={styles.callButton}
+                      onPress={() => navigation.navigate('BusinessInfoView', { business: card })}
+                    >
                       <MaterialCommunityIcons name="information" size={18} color="#00273D" />
                       <Text style={styles.buttonText}>Detalii</Text>
                     </TouchableOpacity>
@@ -60,6 +82,10 @@ const CardSections = () => {
 export default CardSections;
 
 
+
+
+
+
 const styles = {
   container: {
     flex: 1,
@@ -67,22 +93,22 @@ const styles = {
     paddingTop: 30,
     paddingHorizontal: 16,
   },
-  
+
   logoTextContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 10, 
-    paddingLeft: 20, 
+    marginBottom: 10,
+    paddingLeft: 20,
   },
   logo: {
-    marginRight: 10, 
-    width: 20, 
-    height: 20, 
+    marginRight: 10,
+    width: 20,
+    height: 20,
   },
   fixedText: {
-    fontSize: 18, 
-    fontWeight: "bold", 
-    textAlign: "left", 
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "left",
   },
 
   section: {
@@ -111,6 +137,8 @@ const styles = {
     borderColor: "#E5E5E5",
     borderRadius: 10,
     overflow: "hidden",
+    justifyContent: "space-between",
+
   },
   image: {
     width: "100%",
@@ -133,7 +161,7 @@ const styles = {
   buttons: {
     flexDirection: "row",
     backgroundColor: "white",
-    paddingVertical: 5,
+    paddingVertical: 15,
     paddingHorizontal: 10,
     justifyContent: "space-between",
   },
@@ -167,6 +195,12 @@ const styles = {
     marginLeft: 5,
     textAlign: "center",
     justifyContent: "center",
+  },
+  textContainer: { // new style for the texts container
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 10,
   },
 };
 
