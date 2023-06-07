@@ -7,11 +7,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
+  Dimensions,
 } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import ImageZoom from 'react-native-image-pan-zoom';
+
 
 
 export default function BusinessInfo() {
@@ -28,6 +31,18 @@ export default function BusinessInfo() {
   const closeImage = () => {
     setSelectedImage(null);
   };
+  const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    if (selectedImage) {
+      Image.getSize(selectedImage, (width, height) => {
+        const screenWidth = Dimensions.get('window').width;
+        const scaleFactor = width / screenWidth;
+        const imageHeight = height / scaleFactor;
+        setImageSize({ width: screenWidth, height: imageHeight });
+      });
+    }
+  }, [selectedImage]);
 
   // for navigation thru screens
   const navigation = useNavigation();
@@ -51,7 +66,7 @@ export default function BusinessInfo() {
 
   useEffect(() => {
     loadData();
-    
+
     const unsubscribe = navigation.addListener('focus', () => {
       loadData();
     });
@@ -158,10 +173,17 @@ export default function BusinessInfo() {
             <TouchableOpacity onPress={closeImage} style={styles.closeButton}>
               <MaterialIcons name="close" size={24} color="black" />
             </TouchableOpacity>
-            <Image
-              source={{ uri: selectedImage }}
-              style={styles.fullScreenImage}
-            />
+            <ImageZoom
+              cropWidth={Dimensions.get('window').width}
+              cropHeight={Dimensions.get('window').height}
+              imageWidth={imageSize.width}
+              imageHeight={imageSize.height}
+            >
+              <Image
+                source={{ uri: selectedImage }}
+                style={{ ...styles.fullScreenImage, width: imageSize.width, height: imageSize.height }}
+              />
+            </ImageZoom>
           </View>
         </Modal>
       </ScrollView>
@@ -276,7 +298,8 @@ const styles = StyleSheet.create({
   galleryImage: {
     width: 100,
     height: 100,
-    margin: 5,
+    margin: 6,
+    borderRadius: 5,
   },
   fullScreenImageContainer: {
     flex: 1,
@@ -293,7 +316,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 40,
     paddingHorizontal: 10,
-    paddingVertical:10,
+    paddingVertical: 10,
     zIndex: 1,
     backgroundColor: "#BADEF0",
     borderRadius: 10,

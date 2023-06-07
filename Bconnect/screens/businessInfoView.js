@@ -7,9 +7,13 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
+  Dimensions,
 } from "react-native";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import ImageZoom from 'react-native-image-pan-zoom';
+
+
 import businessesData from "../data/businessesData";
 
 const BusinessInfo = ({ route }) => {
@@ -24,6 +28,20 @@ const BusinessInfo = ({ route }) => {
   const closeImage = () => {
     setSelectedImage(null);
   };
+
+  const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    if (selectedImage) {
+      Image.getSize(selectedImage, (width, height) => {
+        const screenWidth = Dimensions.get('window').width;
+        const scaleFactor = width / screenWidth;
+        const imageHeight = height / scaleFactor;
+        setImageSize({ width: screenWidth, height: imageHeight });
+      });
+    }
+  }, [selectedImage]);
+
 
   // navigation
   const navigation = useNavigation();
@@ -130,10 +148,17 @@ const BusinessInfo = ({ route }) => {
             <TouchableOpacity onPress={closeImage} style={styles.closeButton}>
               <MaterialIcons name="close" size={24} color="black" />
             </TouchableOpacity>
-            <Image
-              source={{ uri: selectedImage }}
-              style={styles.fullScreenImage}
-            />
+            <ImageZoom
+              cropWidth={Dimensions.get('window').width}
+              cropHeight={Dimensions.get('window').height}
+              imageWidth={imageSize.width}
+              imageHeight={imageSize.height}
+            >
+              <Image
+                source={{ uri: selectedImage }}
+                style={{ ...styles.fullScreenImage, width: imageSize.width, height: imageSize.height }}
+              />
+            </ImageZoom>
           </View>
         </Modal>
       </ScrollView>
@@ -248,7 +273,8 @@ const styles = StyleSheet.create({
   galleryImage: {
     width: 100,
     height: 100,
-    margin: 5,
+    margin: 6,
+    borderRadius: 5,
   },
   fullScreenImageContainer: {
     flex: 1,

@@ -180,7 +180,7 @@ export default function AccountConfiguration() {
                   style={styles.deleteImageButton}
                   onPress={() => setProfileImage(null)}
                 >
-                  <Text style={styles.deleteImageButtonText}>X</Text>
+                  <Text style={styles.deleteImageButtonText}>×</Text>
                 </TouchableOpacity>
               </>
             ) : (
@@ -207,7 +207,7 @@ export default function AccountConfiguration() {
                   style={styles.deleteImageButton}
                   onPress={() => setCoverImage(null)}
                 >
-                  <Text style={styles.deleteImageButtonText}>X</Text>
+                  <Text style={styles.deleteImageButtonText}>×</Text>
                 </TouchableOpacity>
               </>
             ) : (
@@ -235,8 +235,7 @@ export default function AccountConfiguration() {
           />
         </View>
         <Text style={styles.adviceText}>
-          Asigurați-vă că răspundeți la întrebări în descrierea afacerii pentru
-          a o face mai ușor de citit și utilă.
+        Îmbunătățește afacerea! Răspunde la întrebări și ajută vizitatorii să înțeleagă serviciile tale.
         </Text>
 
         <View style={styles.separator} />
@@ -268,7 +267,6 @@ export default function AccountConfiguration() {
             ))}
           </Picker>
         </View>
-
         <View style={styles.pickerContainer}>
           <Picker
             selectedValue={subCategory}
@@ -372,7 +370,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "gray",
     borderRadius: 10,
-    marginBottom: 15,
+    marginBottom: 10,
   },
   picker: {
     height: 50,
@@ -541,11 +539,12 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     paddingHorizontal: 8,
     paddingVertical: 5,
-    borderRadius: 5,
+    borderRadius: 10,
   },
   deleteImageButtonText: {
     color: "white",
     fontWeight: "bold",
+    fontSize: 11,
   },
   saveButton: {
     alignSelf: "center",
@@ -553,7 +552,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,
-    marginBottom: 20,
+    marginBottom: 35,
   },
   saveButtonText: {
     color: "white",
