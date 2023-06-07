@@ -1,13 +1,17 @@
-import React, { useRef, useState } from 'react';
-import { 
-  View, 
-  Text, 
-  TouchableOpacity, 
-  StyleSheet, 
-  Dimensions, 
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
   FlatList,
   Image,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import BusinessuserInfo from './businessUserInfo'
+
 
 const { width } = Dimensions.get('window');
 
@@ -19,27 +23,48 @@ const AccountConfig = ({ navigation }) => {
     { text: "Încarcă câteva fotografii reprezentative ale afacerii tale. Imaginile pot transmite mai mult decât cuvintele și pot atrage atenția utilizatorilor.", image: require('../assets/accountConfGreet/fourth_section.png') },
     { text: "După ce ai completat toate informațiile necesare și ai adăugat imaginile relevante, apasă butonul \"\Salvează\"\ pentru a adăuga afacerea ta în baza noastră de date.", image: require('../assets/accountConfGreet/fifth_section.png') },
   ];
-  
+
+
   const [step, setStep] = useState(0);
   const flatListRef = useRef();
 
-  const nextStep = () => {
-    if (step < steps.length - 1) {
-      setStep(step + 1);
-      flatListRef.current.scrollToIndex({index: step + 1});
+  const [hasVisited, setHasVisited] = useState(false);
+
+  useEffect(() => {
+    checkVisited();
+  }, []);
+
+  const checkVisited = async () => {
+    try {
+      const value = await AsyncStorage.getItem('userVisited');
+      console.log('Retrieved from AsyncStorage:', value); 
+      if (value !== null) {
+        setHasVisited(true);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const previousStep = () => {
-    if (step > 0) {
-      setStep(step - 1);
-      flatListRef.current.scrollToIndex({index: step - 1});
+  const handleAddAction = async () => {
+    try {
+      await AsyncStorage.setItem('userVisited', 'true');
+      const testValue = await AsyncStorage.getItem('userVisited');
+      console.log('Stored in AsyncStorage:', testValue); 
+      navigation.navigate("AccountQ");
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const handleAddAction = () => {
-    navigation.navigate("AccountQ");
-  };
+
+
+  if (hasVisited) {
+  return (
+    <BusinessuserInfo/>
+  );
+}
+  
 
   const renderStep = ({ item }) => (
     <View style={styles.step}>
@@ -50,9 +75,24 @@ const AccountConfig = ({ navigation }) => {
     </View>
   );
 
+  const nextStep = () => {
+    if (step < steps.length - 1) {
+      setStep(step + 1);
+      flatListRef.current.scrollToIndex({ index: step + 1 });
+    }
+  };
+
+  const previousStep = () => {
+    if (step > 0) {
+      setStep(step - 1);
+      flatListRef.current.scrollToIndex({ index: step - 1 });
+    }
+  };
+
+
   return (
     <View style={styles.container}>
-      <FlatList 
+      <FlatList
         ref={flatListRef}
         data={steps}
         horizontal
@@ -76,76 +116,76 @@ const AccountConfig = ({ navigation }) => {
         ))}
       </View>
       <View style={styles.buttonsContainer}>
-  {step > 0 && (
-    <TouchableOpacity style={styles.button} onPress={previousStep}>
-      <Text style={styles.buttonText}>Înapoi</Text>
-    </TouchableOpacity>
-  )}
-  <TouchableOpacity 
-    style={[styles.button, { marginLeft: step > 0 ? 10 : 0 }]} 
-    onPress={step === steps.length - 1 ? handleAddAction : nextStep}
-  >
-    <Text style={styles.buttonText}>{step === steps.length - 1 ? "Adauga" : "Înainte"}</Text>
-  </TouchableOpacity>
-</View>
+        {step > 0 && (
+          <TouchableOpacity style={styles.button} onPress={previousStep}>
+            <Text style={styles.buttonText}>Înapoi</Text>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity
+          style={[styles.button, { marginLeft: step > 0 ? 10 : 0 }]}
+          onPress={step === steps.length - 1 ? handleAddAction : nextStep}
+        >
+          <Text style={styles.buttonText}>{step === steps.length - 1 ? "Adauga" : "Înainte"}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      paddingBottom: 20,
-    },
-    step: {
-      width: width,
-      paddingHorizontal: 25, 
-    },
-    imageContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    text: {
-      fontSize: 16, 
-      textAlign: 'center',
-      marginBottom: 20, 
-    },
-    image: {
-      width: 300,
-      height: 300, 
-      resizeMode: 'contain',
-    },
-    dotsContainer: {
-      flexDirection: 'row',
-      marginTop: 20,
-    },
-    dot: {
-      width: 10,
-      height: 10,
-      borderRadius: 5,
-      margin: 5,
-    },
-    buttonsContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      width: '60%',
-      marginTop: 20,
-    },
-    button: {
-      backgroundColor: "#00273D",
-      padding: 10,
-      borderRadius: 5,
-      flex: 1, 
-      margin: 10, 
-    },
-    buttonText: {
-      color: "#fff",
-      fontSize: 18,
-      textAlign: 'center', 
-    },
-  });
-  
-  export default AccountConfig;
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    paddingBottom: 20,
+  },
+  step: {
+    width: width,
+    paddingHorizontal: 25,
+  },
+  imageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  image: {
+    width: 300,
+    height: 300,
+    resizeMode: 'contain',
+  },
+  dotsContainer: {
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    margin: 5,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '60%',
+    marginTop: 20,
+  },
+  button: {
+    backgroundColor: "#00273D",
+    padding: 10,
+    borderRadius: 10,
+    flex: 1,
+    margin: 10,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    textAlign: 'center',
+  },
+});
+
+export default AccountConfig;

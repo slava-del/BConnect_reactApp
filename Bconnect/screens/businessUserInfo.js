@@ -55,13 +55,6 @@ export default function BusinessInfo() {
 
   return (
     <View>
-      {/* Section 1: Back button */}
-      {/* <View style={styles.backButtonContainer}>
-        <TouchableOpacity onPress={() => console.log("Go back")}>
-          <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
-        </TouchableOpacity>
-      </View> */}
-
       <ScrollView>
 
         {/* Section 2: Background image and logo */}
@@ -168,7 +161,7 @@ export default function BusinessInfo() {
       </ScrollView>
       {/* Section 7: Edit button */}
       <View style={styles.editButtonContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate("BottomTabNavigator", {screen: "AccountQ"})}>
+        <TouchableOpacity onPress={() => navigation.navigate("AccountQ")}>
           <MaterialCommunityIcons
             name="pencil"
             size={30}

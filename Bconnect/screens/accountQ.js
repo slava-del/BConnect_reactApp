@@ -96,7 +96,7 @@ export default function AccountConfiguration() {
   const navigation = useNavigation();
   function onSave() {
     saveData();
-    navigation.navigate("BusinessUserInfo");
+    navigation.navigate("BottomTabNavigator", { screen: "AccountScreen" })
   }
 
   async function saveData() {
