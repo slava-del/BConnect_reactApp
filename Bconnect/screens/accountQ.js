@@ -161,17 +161,6 @@ export default function AccountConfiguration() {
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.backButtonContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("HomeScreen");
-          }}
-        >
-          <MaterialCommunityIcons name="arrow-left" size={29} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.title}>Editează informația</Text>
-      </View> */}
-
       <ScrollView style={styles.container}>
         {/* Profile image section */}
 

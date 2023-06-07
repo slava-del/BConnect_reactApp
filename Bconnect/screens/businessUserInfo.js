@@ -51,7 +51,13 @@ export default function BusinessInfo() {
 
   useEffect(() => {
     loadData();
-  }, []);
+    
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadData();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <View>
