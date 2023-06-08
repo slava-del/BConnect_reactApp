@@ -1,13 +1,36 @@
-import React from "react";
-import { ScrollView, View, Text, Image, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { ScrollView, View, Text, Image, TouchableOpacity, ActivityIndicator } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 
 import businessesData from "../data/businessesData";
 
 const CardSections = () => {
-
   const navigation = useNavigation();
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    console.log("Start loading images");
+    const loadImages = async () => {
+      await Promise.all(
+        businessesData.map(async (business) => {
+          await Image.prefetch(business.coverImage);
+        })
+      );
+      setLoading(false);
+    };
+
+    loadImages();
+  }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#00273D" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -93,7 +116,16 @@ const styles = {
     paddingTop: 30,
     paddingHorizontal: 16,
   },
-
+  loadingContainer: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+  },
   logoTextContainer: {
     flexDirection: "row",
     alignItems: "center",
