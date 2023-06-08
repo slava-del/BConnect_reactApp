@@ -7,9 +7,9 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
-  Alert,
   StyleSheet,
 } from "react-native";
+import Dialog from "react-native-dialog";
 
 const EditPopup = ({
   isVisible,
@@ -22,6 +22,7 @@ const EditPopup = ({
   setCareEsteScopul,
 }) => {
   const [submitDisabled, setSubmitDisabled] = useState(true);
+  const [dialogVisible, setDialogVisible] = useState(false);
 
   useEffect(() => {
     if (cineSuntem.length >= 50 && ceFacem.length >= 50 && careEsteScopul.length >= 50) {
@@ -30,6 +31,14 @@ const EditPopup = ({
       setSubmitDisabled(true);
     }
   }, [cineSuntem, ceFacem, careEsteScopul]);
+
+  const showDialog = () => {
+    setDialogVisible(true);
+  };
+
+  const handleOk = () => {
+    setDialogVisible(false);
+  };
 
   const handleSubmit = () => {
     if (!submitDisabled) {
@@ -41,7 +50,7 @@ const EditPopup = ({
       setCareEsteScopul(careEsteScopul);
       onClose();
     } else {
-      Alert.alert('Avertisment!', 'Toate câmpurile trebuie să conțină minim 50 caractere');
+      showDialog();
     }
   };
 
@@ -106,9 +115,22 @@ const EditPopup = ({
               <Text style={styles.modalTempText}>Minim 50 de caractere</Text>
             )}
 
-            <TouchableOpacity onPress={handleSubmit}>
-              <Text style={[styles.submitButton, submitDisabled && styles.disabledButton]}>Salvează</Text>
-            </TouchableOpacity>
+<TouchableOpacity onPress={handleSubmit}>
+          <Text style={[styles.submitButton, submitDisabled && styles.disabledButton]}>Salvează</Text>
+        </TouchableOpacity>
+
+        <Dialog.Container visible={dialogVisible}>
+          <View style={styles.dialogContent}>
+            <Dialog.Title>Avertisment!</Dialog.Title>
+            <Dialog.Description>
+              Toate câmpurile trebuie să conțină minim 50 caractere.
+            </Dialog.Description>
+            <View style={styles.dialogButton}>
+              <Dialog.Button label="OK" onPress={handleOk} />
+            </View>
+          </View>
+        </Dialog.Container>
+
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -170,6 +192,15 @@ const styles = StyleSheet.create({
   },
   disabledButton: {
     backgroundColor: "#ccc",
+  },
+  dialogContent: {
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    backgroundColor: '#fff',
+  },
+  dialogButton: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   modalTempText: {
     color: "#888",
