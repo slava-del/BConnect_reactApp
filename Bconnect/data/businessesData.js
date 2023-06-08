@@ -9,9 +9,9 @@ const businessesData = [
     title: "Rimobil",
     coverImage:
       "https://assets.architecturaldigest.in/photos/60eed0435260d592f50edbc7/16:9/pass/Italian-luxury-furniture-Minotti.jpg",
-    location: "Strada București 92, Chișinău, Moldova",
+    location: ["Strada București 92, Chișinău, Moldova", "Bulevardul Moscovei 15/4", "Strada Alunei 45"],
     phoneNumbers: ["+373-7892-1234", "+373-8902-2345"],
-    email: "rimobil@gmail.com",
+    email: "rimobil@gmail.com", 
     textCineSuntem:
       "Rimobil este unul dintre cei mai apreciați producători de mobilă de bucătărie din Moldova, recunoscut pentru calitatea, funcționalitatea și designul inovator al produselor sale. Compania noastră are o experiență bogată în domeniul amenajărilor interioare, specializându-se în crearea de soluții de mobilier adaptate nevoilor și preferințelor clienților săi.",
     textCeFacem:
@@ -39,7 +39,7 @@ const businessesData = [
     logo: "https://logowik.com/content/uploads/images/giant-bicycles-new-20202103.jpg",
     coverImage:
       "https://static.giant-bicycles.com/Images/Giant/Stores/giantstore_uk_bristol.jpg",
-    location: "Strada Armeneasca 24, Chișinău, Moldova",
+    location: ["Strada Armeneasca 24, Chișinău, Moldova"],
     phoneNumbers: ["+373-1234-5678", "+373-2345-6789"],
     email: "giant@gmail.com",
     textCineSuntem:
@@ -66,7 +66,7 @@ const businessesData = [
     logo: "https://www.metancor.md/wa-data/public/site/themes/vivashop/img/logo.png?v1678720981",
     title: "Metancor",
     coverImage: "https://i.ytimg.com/vi/diwM3zgsoW0/maxresdefault.jpg",
-    location: "Strada Mihai Eminescu 43, Chișinău, Moldova",
+    location: ["Strada Mihai Eminescu 43, Chișinău, Moldova"],
     phoneNumbers: ["+373-7890-1234", "+373-8901-2345"],
     email: "cannondale@gmail.com",
     textCineSuntem:
@@ -96,7 +96,7 @@ const businessesData = [
     title: "Trek Bicycles",
     coverImage:
       "https://www.trekstore.jp/assets/img/shop_pic_slider-matsuyama01",
-    location: "Bulevardul Dacia 67, Chișinău, Moldova",
+    location: ["Bulevardul Dacia 67, Chișinău, Moldova"],
     phoneNumbers: ["+373-3456-7890", "+373-4567-8901"],
     email: "trekbicycles@gmail.com",
     textCineSuntem:
@@ -124,7 +124,7 @@ const businessesData = [
     title: "Specialized",
     coverImage:
       "https://cdn.room58.com/2022/07/25/621cc25c0cdcc13603055410a952a791_0ebd87af7e2ecd73.png",
-    location: "Strada Petru Rareș 42, Chișinău, Moldova",
+    location: ["Strada Petru Rareș 42, Chișinău, Moldova"],
     phoneNumbers: ["+373-5678-9012", "+373-6789-0123"],
     email: "specialized@gmail.com",
     textCineSuntem:
@@ -153,7 +153,7 @@ const businessesData = [
     title: "FermaCuOrigini",
     coverImage:
       "https://static.cdn.jurnaltv.md/superdesk/20230307190332/2c66d932-fcd3-4535-a3bd-eac2c962d74c.png",
-    location: "Strada Principala, satul Văleni, raionul Orhei",
+    location: ["Strada Principala, satul Văleni, raionul Orhei"],
     phoneNumbers: ["+373 69 123 456", "+373 68 987 654", "+373 67 555 888"],
     email: "info@fermacuorigini.com",
     textCineSuntem:
@@ -182,7 +182,7 @@ const businessesData = [
     title: "Orhei Vit",
     coverImage:
       "https://i0.wp.com/orhei-vit.com/wp-content/uploads/2019/02/Orhei-Vit.png?fit=1200%2C400&ssl=1",
-    location: "Strada Alunei, satul Cornești, raionul Ungheni",
+    location: ["Strada Alunei, satul Cornești, raionul Ungheni"],
     phoneNumbers: ["022 82 53 53"],
     email: "orhei@vit.com",
     textCineSuntem:

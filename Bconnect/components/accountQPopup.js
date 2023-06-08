@@ -115,21 +115,21 @@ const EditPopup = ({
               <Text style={styles.modalTempText}>Minim 50 de caractere</Text>
             )}
 
-<TouchableOpacity onPress={handleSubmit}>
-          <Text style={[styles.submitButton, submitDisabled && styles.disabledButton]}>Salvează</Text>
-        </TouchableOpacity>
+            <TouchableOpacity onPress={handleSubmit}>
+              <Text style={[styles.submitButton, submitDisabled && styles.disabledButton]}>Salvează</Text>
+            </TouchableOpacity>
 
-        <Dialog.Container visible={dialogVisible}>
-          <View style={styles.dialogContent}>
-            <Dialog.Title>Avertisment!</Dialog.Title>
-            <Dialog.Description>
-              Toate câmpurile trebuie să conțină minim 50 caractere.
-            </Dialog.Description>
-            <View style={styles.dialogButton}>
-              <Dialog.Button label="OK" onPress={handleOk} />
-            </View>
-          </View>
-        </Dialog.Container>
+            <Dialog.Container visible={dialogVisible}>
+              <View style={styles.dialogContent}>
+                <Dialog.Title>Avertisment!</Dialog.Title>
+                <Dialog.Description>
+                  Toate câmpurile trebuie să conțină minim 50 caractere.
+                </Dialog.Description>
+                <View style={styles.dialogButton}>
+                  <Dialog.Button label="OK" onPress={handleOk} />
+                </View>
+              </View>
+            </Dialog.Container>
 
           </View>
         </ScrollView>

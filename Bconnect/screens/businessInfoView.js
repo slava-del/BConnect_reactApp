@@ -82,7 +82,6 @@ const BusinessInfo = ({ route }) => {
           )}
         </View>
 
-        {/* Main Content Container */}
         <View style={styles.mainContentContainer}>
           {/* Contact information */}
           <View style={styles.contactContainer}>
@@ -100,6 +99,21 @@ const BusinessInfo = ({ route }) => {
               <View style={styles.emailContainer}>
                 <MaterialCommunityIcons name="email" size={24} color="black" />
                 <Text style={styles.email}>{filteredData.email}</Text>
+              </View>
+            )}
+
+            {/* Location information */}
+            {filteredData.location && (
+              <View style={styles.locationContainer}>
+                <MaterialCommunityIcons name="map-marker" size={24} color="black" />
+                <View style={styles.locations}>
+                  {filteredData.location.map((loc, index) => (
+                    <Text key={index} style={styles.location}>
+                      <Text style={styles.boldText}>{"Sediul " + (index + 1) + ": "}</Text>
+                      {loc.trim()}
+                    </Text>
+                  ))}
+                </View>
               </View>
             )}
           </View>
@@ -244,10 +258,25 @@ const styles = StyleSheet.create({
   },
   email: {
     marginLeft: 10,
-  },
-  aboutContainer: {
+},
+locationContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginTop: 10,
+},
+locations: {
+    marginLeft: 10,
+},
+location: {
+    width: '90%',
+    marginTop: 5, // Add a top margin to create space between location lines
+},
+aboutContainer: {
     marginBottom: 20,
-  },
+},
+boldText: {
+    fontWeight: 'bold', // Style for bold text
+},
   aboutTitle: {
     fontSize: 20,
     fontWeight: "bold",

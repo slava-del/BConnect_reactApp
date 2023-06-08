@@ -129,6 +129,21 @@ export default function BusinessInfo() {
                 <Text style={styles.email}>{businessData.email}</Text>
               </View>
             )}
+            {/* Location information */}
+            {businessData.locations && (
+              <View style={styles.locationContainer}>
+                <MaterialCommunityIcons name="map-marker" size={24} color="black" />
+                <View style={styles.locations}>
+                  {businessData.locations.map((loc, index) => (
+                    <Text key={index} style={styles.location}>
+                      <Text style={styles.boldText}>{"Sediul " + (index + 1) + ": "}</Text>
+                      {loc.trim()}
+                    </Text>
+                  ))}
+                </View>
+              </View>
+            )}
+
           </View>
 
           {/* Section 5: About us */}
@@ -269,10 +284,26 @@ const styles = StyleSheet.create({
   },
   email: {
     marginLeft: 10,
-  },
-  aboutContainer: {
+},
+locationContainer: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginTop: 10,
+},
+locations: {
+  flex: 1,  
+  marginLeft: 10,
+},
+location: {
+    width: '90%',
+    marginTop: 5, 
+},
+aboutContainer: {
     marginBottom: 20,
-  },
+},
+boldText: {
+    fontWeight: 'bold', 
+},
   aboutTitle: {
     fontSize: 20,
     fontWeight: "bold",

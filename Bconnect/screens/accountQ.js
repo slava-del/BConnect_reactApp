@@ -17,8 +17,12 @@ import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 
+
 import EditPopup from "../components/accountQPopup";
 import categoriesData from "../data/categoriesData";
+
+
+
 
 export default function AccountConfiguration() {
   const [title, setTitle] = useState("");
@@ -26,6 +30,7 @@ export default function AccountConfiguration() {
   const [subCategory, setSubCategory] = useState("");
   const [phoneNumbers, setPhoneNumbers] = useState([""]);
   const [email, setEmail] = useState("");
+  const [locations, setLocations] = useState([""]);
   const [galleryImages, setGalleryImages] = useState([]);
   const [uploadedImages, setUploadedImages] = useState(Array(18).fill(null)); //max 18 images - section gallery
   const [selectedCategoryId, setSelectedCategoryId] = useState(1);
@@ -49,7 +54,7 @@ export default function AccountConfiguration() {
     setModalVisible(true);
   };
 
-  // for animating phone numbers
+  // animation phone numbers
   if (
     Platform.OS === "android" &&
     UIManager.setLayoutAnimationEnabledExperimental
@@ -57,26 +62,26 @@ export default function AccountConfiguration() {
     UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 
-  // Function to handle image picker
+  // Fimage picker
   async function pickImage(setImage) {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
+      allowsEditing: false,
       quality: 1,
     });
 
-    if (!result.cancelled) {
+    if (!result.canceled) {
       setImage(result.uri);
     }
   }
 
-  // Add a new phone number input field
+  // phone number input field
   function addPhoneNumber() {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setPhoneNumbers([...phoneNumbers, ""]);
   }
 
-  // Update a phone number in the array
+  // Update phone number 
   function updatePhoneNumber(index, value) {
     let updatedPhoneNumbers = [...phoneNumbers];
     updatedPhoneNumbers[index] = value;
@@ -87,6 +92,25 @@ export default function AccountConfiguration() {
   function deletePhoneNumber(index) {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setPhoneNumbers(phoneNumbers.filter((_, i) => i !== index));
+  }
+
+  // Location input field
+  function addLocation() {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setLocations([...locations, ""]);
+  }
+
+  // Update location 
+  function updateLocation(index, value) {
+    let updatedLocations = [...locations];
+    updatedLocations[index] = value;
+    setLocations(updatedLocations);
+  }
+
+  // Delete a location
+  function deleteLocation(index) {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setLocations(locations.filter((_, i) => i !== index));
   }
 
   // Add an image to the gallery
@@ -113,6 +137,7 @@ export default function AccountConfiguration() {
       aboutCineSuntem,
       aboutCeFacem,
       aboutCareEsteScopul,
+      locations,
     };
 
     try {
@@ -135,6 +160,7 @@ export default function AccountConfiguration() {
         setSubCategory(businessData.subCategory || "");
         setPhoneNumbers(businessData.phoneNumbers || [""]);
         setEmail(businessData.email || "");
+        setLocations(businessData.locations || [""]);
         setProfileImage(businessData.profileImage || null);
         setCoverImage(businessData.coverImage || null);
         setGalleryImages(businessData.galleryImages || []);
@@ -236,7 +262,7 @@ export default function AccountConfiguration() {
           />
         </View>
         <Text style={styles.adviceText}>
-        Îmbunătățește afacerea! Răspunde la întrebări și ajută vizitatorii să înțeleagă serviciile tale.
+          Îmbunătățește afacerea! Răspunde la întrebări și ajută vizitatorii să înțeleagă serviciile tale.
         </Text>
 
         <View style={styles.separator} />
@@ -308,7 +334,7 @@ export default function AccountConfiguration() {
             ) : null}
             {phoneNumbers.length > 1 && (
               <TouchableOpacity
-                style={styles.deletePhoneButton}
+                // style={styles.deletePhoneButton}
                 onPress={() => deletePhoneNumber(index)}
               >
                 <MaterialCommunityIcons name="minus" size={24} color="black" />
@@ -325,6 +351,35 @@ export default function AccountConfiguration() {
 
         <View style={styles.separator} />
 
+        <Text style={styles.leftAlignedText}>Locație</Text>
+        {locations.map((location, index) => (
+          <View key={index} style={styles.phoneNumberRow}>
+            <TextInput
+              style={styles.phoneNumberInput}
+              value={location}
+              placeholder="Locație"
+              onChangeText={(value) => updateLocation(index, value)}
+            />
+            {index === locations.length - 1 ? (
+              <TouchableOpacity
+                style={styles.addPhoneButton}
+                onPress={addLocation}
+              >
+                <MaterialCommunityIcons name="plus" size={24} color="black" />
+              </TouchableOpacity>
+            ) : null}
+            {locations.length > 1 && (
+              <TouchableOpacity
+                // style={styles.deleteLocationButton}
+                onPress={() => deleteLocation(index)}
+              >
+                <MaterialCommunityIcons name="minus" size={24} color="black" />
+              </TouchableOpacity>
+            )}
+          </View>
+        ))}
+
+        <View style={styles.separator} />
         <View style={styles.galleryHeader}>
           <Text style={styles.leftAlignedText}>Galerie</Text>
           <TouchableOpacity
