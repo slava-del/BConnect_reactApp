@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,8 +7,8 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
+  Alert,
   StyleSheet,
-  props,
 } from "react-native";
 
 const EditPopup = ({
@@ -21,20 +21,38 @@ const EditPopup = ({
   careEsteScopul,
   setCareEsteScopul,
 }) => {
+  const [submitDisabled, setSubmitDisabled] = useState(true);
+
+  useEffect(() => {
+    if (cineSuntem.length >= 50 && ceFacem.length >= 50 && careEsteScopul.length >= 50) {
+      setSubmitDisabled(false);
+    } else {
+      setSubmitDisabled(true);
+    }
+  }, [cineSuntem, ceFacem, careEsteScopul]);
+
   const handleSubmit = () => {
-    console.log(`Cine suntem? ${cineSuntem}`);
-    console.log(`Ce facem? ${ceFacem}`);
-    console.log(`Care este scopul nostru? ${careEsteScopul}`);
-    setCineSuntem(cineSuntem);
-    setCeFacem(ceFacem);
-    setCareEsteScopul(careEsteScopul);
-    onClose();
+    if (!submitDisabled) {
+      console.log(`Cine suntem? ${cineSuntem}`);
+      console.log(`Ce facem? ${ceFacem}`);
+      console.log(`Care este scopul nostru? ${careEsteScopul}`);
+      setCineSuntem(cineSuntem);
+      setCeFacem(ceFacem);
+      setCareEsteScopul(careEsteScopul);
+      onClose();
+    } else {
+      Alert.alert('Avertisment!', 'Toate câmpurile trebuie să conțină minim 50 caractere');
+    }
   };
 
 
   return (
     <Modal visible={isVisible} animationType="slide">
-      <KeyboardAvoidingView style={styles.containerKeyboard} behavior="padding">
+      <KeyboardAvoidingView
+        style={styles.containerKeyboard}
+        behavior="height"
+        keyboardVerticalOffset={20}
+      >
         <ScrollView>
           <View style={styles.modalContainer}>
             <Text style={styles.modalTitle}>Editează secțiunea despre</Text>
@@ -52,7 +70,7 @@ const EditPopup = ({
               style={styles.modalInput}
             />
 
-            {cineSuntem.length === 0 && (
+            {cineSuntem.length < 50 && (
               <Text style={styles.modalTempText}>Minim 50 de caractere</Text>
             )}
 
@@ -67,7 +85,7 @@ const EditPopup = ({
               style={styles.modalInput}
             />
 
-            {ceFacem.length === 0 && (
+            {ceFacem.length < 50 && (
               <Text style={styles.modalTempText}>Minim 50 de caractere</Text>
             )}
 
@@ -84,12 +102,12 @@ const EditPopup = ({
               style={styles.modalInput}
             />
 
-            {careEsteScopul.length === 0 && (
+            {careEsteScopul.length < 50 && (
               <Text style={styles.modalTempText}>Minim 50 de caractere</Text>
             )}
 
             <TouchableOpacity onPress={handleSubmit}>
-              <Text style={styles.submitButton}>Salvează</Text>
+              <Text style={[styles.submitButton, submitDisabled && styles.disabledButton]}>Salvează</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -149,6 +167,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontWeight: "bold",
     marginTop: 10,
+  },
+  disabledButton: {
+    backgroundColor: "#ccc",
   },
   modalTempText: {
     color: "#888",

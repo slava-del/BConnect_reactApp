@@ -16,6 +16,7 @@ import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+
 import EditPopup from "../components/accountQPopup";
 import categoriesData from "../data/categoriesData";
 
