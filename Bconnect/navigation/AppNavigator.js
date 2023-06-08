@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 //screens
+import SplashScreen from '../screens/splashScreen'
 import OnboardingSt from '../screens/onboardingStart';
 import OnboardingTr from '../screens/onboardingTr';
 import OnboardingFinal from '../screens/onboardingFinal';
@@ -25,6 +26,7 @@ export default function MainStackNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
         <Stack.Screen name="OnboardingSt" component={OnboardingSt} options={{ headerShown: false }} />
         <Stack.Screen name="OnboardingTr" component={OnboardingTr} options={{ headerShown: false }} />
         <Stack.Screen name="OnboardingFinal" component={OnboardingFinal} options={{ headerShown: false }} />
