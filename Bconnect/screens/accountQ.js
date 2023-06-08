@@ -16,6 +16,7 @@ import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import { ActivityIndicator } from "react-native";
 
 
 import EditPopup from "../components/accountQPopup";
@@ -25,6 +26,7 @@ import categoriesData from "../data/categoriesData";
 
 
 export default function AccountConfiguration() {
+  const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
@@ -173,6 +175,8 @@ export default function AccountConfiguration() {
       }
     } catch (error) {
       console.error("Error loading data:", error);
+    } finally {
+      setLoading(false); // set loading to false when the data has loaded
     }
   }
 
@@ -188,225 +192,232 @@ export default function AccountConfiguration() {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.container}>
-        {/* Profile image section */}
+      {loading ? (
+        <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#00273D" />
+        <Text>Loading...</Text>
+      </View>
+      ) : (
+        <ScrollView style={styles.container}>
+          {/* Profile image section */}
 
-        <Text style={styles.leftAlignedText}>Fotografia de profil</Text>
-        <View style={styles.uploadBox}>
-          <TouchableOpacity
-            onPress={() => pickImage(setProfileImage)}
-            style={styles.uploadProfileImageButton}
-          >
-            {profileImage ? (
-              <>
-                <Image
-                  source={{ uri: profileImage }}
-                  style={styles.uploadedProfileImage}
-                />
-                <TouchableOpacity
-                  style={styles.deleteImageButton}
-                  onPress={() => setProfileImage(null)}
-                >
-                  <Text style={styles.deleteImageButtonText}>×</Text>
-                </TouchableOpacity>
-              </>
-            ) : (
-              <MaterialCommunityIcons name="upload" size={24} color="black" />
-            )}
-          </TouchableOpacity>
-        </View>
+          <Text style={styles.leftAlignedText}>Fotografia de profil</Text>
+          <View style={styles.uploadBox}>
+            <TouchableOpacity
+              onPress={() => pickImage(setProfileImage)}
+              style={styles.uploadProfileImageButton}
+            >
+              {profileImage ? (
+                <>
+                  <Image
+                    source={{ uri: profileImage }}
+                    style={styles.uploadedProfileImage}
+                  />
+                  <TouchableOpacity
+                    style={styles.deleteImageButton}
+                    onPress={() => setProfileImage(null)}
+                  >
+                    <Text style={styles.deleteImageButtonText}>×</Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <MaterialCommunityIcons name="upload" size={24} color="black" />
+              )}
+            </TouchableOpacity>
+          </View>
 
-        {/* // Cover image section */}
+          {/* // Cover image section */}
 
-        <Text style={styles.leftAlignedText}>Fotografia de copertă</Text>
-        <View style={styles.uploadBox}>
-          <TouchableOpacity
-            onPress={() => pickImage(setCoverImage)}
-            style={styles.uploadCoverImageButton}
-          >
-            {coverImage ? (
-              <>
-                <Image
-                  source={{ uri: coverImage }}
-                  style={styles.uploadedCoverImage}
-                />
-                <TouchableOpacity
-                  style={styles.deleteImageButton}
-                  onPress={() => setCoverImage(null)}
-                >
-                  <Text style={styles.deleteImageButtonText}>×</Text>
-                </TouchableOpacity>
-              </>
-            ) : (
-              <MaterialCommunityIcons name="upload" size={24} color="black" />
-            )}
-          </TouchableOpacity>
-        </View>
+          <Text style={styles.leftAlignedText}>Fotografia de copertă</Text>
+          <View style={styles.uploadBox}>
+            <TouchableOpacity
+              onPress={() => pickImage(setCoverImage)}
+              style={styles.uploadCoverImageButton}
+            >
+              {coverImage ? (
+                <>
+                  <Image
+                    source={{ uri: coverImage }}
+                    style={styles.uploadedCoverImage}
+                  />
+                  <TouchableOpacity
+                    style={styles.deleteImageButton}
+                    onPress={() => setCoverImage(null)}
+                  >
+                    <Text style={styles.deleteImageButtonText}>×</Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <MaterialCommunityIcons name="upload" size={24} color="black" />
+              )}
+            </TouchableOpacity>
+          </View>
 
-        <View style={styles.separator} />
+          <View style={styles.separator} />
 
-        <View style={styles.aboutSection}>
-          <Text style={styles.leftAlignedText}>Despre</Text>
-          <TouchableOpacity style={styles.addButton} onPress={toggleEditPopup}>
-            <Text style={styles.leftAlignedText}>Adaugă</Text>
-          </TouchableOpacity>
-          <EditPopup
-            isVisible={isEditPopupVisible}
-            onClose={toggleEditPopup}
-            cineSuntem={aboutCineSuntem}
-            setCineSuntem={setAboutCineSuntem}
-            ceFacem={aboutCeFacem}
-            setCeFacem={setAboutCeFacem}
-            careEsteScopul={aboutCareEsteScopul}
-            setCareEsteScopul={setAboutCareEsteScopul}
+          <View style={styles.aboutSection}>
+            <Text style={styles.leftAlignedText}>Despre</Text>
+            <TouchableOpacity style={styles.addButton} onPress={toggleEditPopup}>
+              <Text style={styles.leftAlignedText}>Adaugă</Text>
+            </TouchableOpacity>
+            <EditPopup
+              isVisible={isEditPopupVisible}
+              onClose={toggleEditPopup}
+              cineSuntem={aboutCineSuntem}
+              setCineSuntem={setAboutCineSuntem}
+              ceFacem={aboutCeFacem}
+              setCeFacem={setAboutCeFacem}
+              careEsteScopul={aboutCareEsteScopul}
+              setCareEsteScopul={setAboutCareEsteScopul}
+            />
+          </View>
+          <Text style={styles.adviceText}>
+            Îmbunătățește afacerea! Răspunde la întrebări și ajută vizitatorii să înțeleagă serviciile tale.
+          </Text>
+
+          <View style={styles.separator} />
+
+          <Text style={styles.leftAlignedText}>Denumirea afacerii</Text>
+          <TextInput
+            style={styles.inputField}
+            onChangeText={setTitle}
+            value={title}
+            placeholder="Titlu"
           />
-        </View>
-        <Text style={styles.adviceText}>
-          Îmbunătățește afacerea! Răspunde la întrebări și ajută vizitatorii să înțeleagă serviciile tale.
-        </Text>
-
-        <View style={styles.separator} />
-
-        <Text style={styles.leftAlignedText}>Denumirea afacerii</Text>
-        <TextInput
-          style={styles.inputField}
-          onChangeText={setTitle}
-          value={title}
-          placeholder="Titlu"
-        />
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={selectedCategoryId}
-            onValueChange={(itemValue) => {
-              setSelectedCategoryId(itemValue);
-              setCategory(
-                categoriesData.find((cat) => cat.id === itemValue).title
-              );
-            }}
-            style={styles.picker}
-          >
-            {categoriesData.map((category) => (
-              <Picker.Item
-                key={category.id}
-                label={category.title}
-                value={category.id}
-              />
-            ))}
-          </Picker>
-        </View>
-        <View style={styles.pickerContainer}>
-          <Picker
-            selectedValue={subCategory}
-            onValueChange={(itemValue) => setSubCategory(itemValue)}
-            style={styles.picker}
-          >
-            {categoriesData
-              .find((category) => category.id === selectedCategoryId)
-              .subcategories.map((subcategory, index) => (
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={selectedCategoryId}
+              onValueChange={(itemValue) => {
+                setSelectedCategoryId(itemValue);
+                setCategory(
+                  categoriesData.find((cat) => cat.id === itemValue).title
+                );
+              }}
+              style={styles.picker}
+            >
+              {categoriesData.map((category) => (
                 <Picker.Item
-                  key={index}
-                  label={subcategory}
-                  value={subcategory}
+                  key={category.id}
+                  label={category.title}
+                  value={category.id}
                 />
               ))}
-          </Picker>
-        </View>
-
-        <View style={styles.separator} />
-
-        <Text style={styles.leftAlignedText}>Date de contact</Text>
-        {phoneNumbers.map((number, index) => (
-          <View key={index} style={styles.phoneNumberRow}>
-            <TextInput
-              style={styles.phoneNumberInput}
-              keyboardType="phone-pad"
-              value={number}
-              placeholder="Nr. de telefon"
-              onChangeText={(value) => updatePhoneNumber(index, value)}
-            />
-            {index === phoneNumbers.length - 1 ? (
-              <TouchableOpacity
-                style={styles.addPhoneButton}
-                onPress={addPhoneNumber}
-              >
-                <MaterialCommunityIcons name="plus" size={24} color="black" />
-              </TouchableOpacity>
-            ) : null}
-            {phoneNumbers.length > 1 && (
-              <TouchableOpacity
-                // style={styles.deletePhoneButton}
-                onPress={() => deletePhoneNumber(index)}
-              >
-                <MaterialCommunityIcons name="minus" size={24} color="black" />
-              </TouchableOpacity>
-            )}
+            </Picker>
           </View>
-        ))}
-        <TextInput
-          style={styles.inputField}
-          onChangeText={setEmail}
-          value={email}
-          placeholder="Email"
-        />
-
-        <View style={styles.separator} />
-
-        <Text style={styles.leftAlignedText}>Locație</Text>
-        {locations.map((location, index) => (
-          <View key={index} style={styles.phoneNumberRow}>
-            <TextInput
-              style={styles.phoneNumberInput}
-              value={location}
-              placeholder="Locație"
-              onChangeText={(value) => updateLocation(index, value)}
-            />
-            {index === locations.length - 1 ? (
-              <TouchableOpacity
-                style={styles.addPhoneButton}
-                onPress={addLocation}
-              >
-                <MaterialCommunityIcons name="plus" size={24} color="black" />
-              </TouchableOpacity>
-            ) : null}
-            {locations.length > 1 && (
-              <TouchableOpacity
-                // style={styles.deleteLocationButton}
-                onPress={() => deleteLocation(index)}
-              >
-                <MaterialCommunityIcons name="minus" size={24} color="black" />
-              </TouchableOpacity>
-            )}
+          <View style={styles.pickerContainer}>
+            <Picker
+              selectedValue={subCategory}
+              onValueChange={(itemValue) => setSubCategory(itemValue)}
+              style={styles.picker}
+            >
+              {categoriesData
+                .find((category) => category.id === selectedCategoryId)
+                .subcategories.map((subcategory, index) => (
+                  <Picker.Item
+                    key={index}
+                    label={subcategory}
+                    value={subcategory}
+                  />
+                ))}
+            </Picker>
           </View>
-        ))}
 
-        <View style={styles.separator} />
-        <View style={styles.galleryHeader}>
-          <Text style={styles.leftAlignedText}>Galerie</Text>
-          <TouchableOpacity
-            style={styles.galleryUploadButton}
-            onPress={() => pickImage(addToGallery)}
-          >
-            <Text style={styles.leftAlignedText}>Adaugă imagine</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.galleryContainer}>
-          {galleryImages.map((image, index) => (
-            <View key={index} style={styles.imageContainer}>
-              <Image source={{ uri: image }} style={styles.galleryImage} />
-              <TouchableOpacity
-                style={styles.deleteImageButton}
-                onPress={() => deleteGalleryImage(index)}
-              >
-                <Text style={styles.deleteImageButtonText}>×</Text>
-              </TouchableOpacity>
+          <View style={styles.separator} />
+
+          <Text style={styles.leftAlignedText}>Date de contact</Text>
+          {phoneNumbers.map((number, index) => (
+            <View key={index} style={styles.phoneNumberRow}>
+              <TextInput
+                style={styles.phoneNumberInput}
+                keyboardType="phone-pad"
+                value={number}
+                placeholder="Nr. de telefon"
+                onChangeText={(value) => updatePhoneNumber(index, value)}
+              />
+              {index === phoneNumbers.length - 1 ? (
+                <TouchableOpacity
+                  style={styles.addPhoneButton}
+                  onPress={addPhoneNumber}
+                >
+                  <MaterialCommunityIcons name="plus" size={24} color="black" />
+                </TouchableOpacity>
+              ) : null}
+              {phoneNumbers.length > 1 && (
+                <TouchableOpacity
+                  // style={styles.deletePhoneButton}
+                  onPress={() => deletePhoneNumber(index)}
+                >
+                  <MaterialCommunityIcons name="minus" size={24} color="black" />
+                </TouchableOpacity>
+              )}
             </View>
           ))}
-        </View>
-        <View style={styles.separator} />
-        <TouchableOpacity onPress={onSave} style={styles.saveButton}>
-          <Text style={styles.saveButtonText}>Salvează</Text>
-        </TouchableOpacity>
-      </ScrollView>
+          <TextInput
+            style={styles.inputField}
+            onChangeText={setEmail}
+            value={email}
+            placeholder="Email"
+          />
+
+          <View style={styles.separator} />
+
+          <Text style={styles.leftAlignedText}>Locație</Text>
+          {locations.map((location, index) => (
+            <View key={index} style={styles.phoneNumberRow}>
+              <TextInput
+                style={styles.phoneNumberInput}
+                value={location}
+                placeholder="Locație"
+                onChangeText={(value) => updateLocation(index, value)}
+              />
+              {index === locations.length - 1 ? (
+                <TouchableOpacity
+                  style={styles.addPhoneButton}
+                  onPress={addLocation}
+                >
+                  <MaterialCommunityIcons name="plus" size={24} color="black" />
+                </TouchableOpacity>
+              ) : null}
+              {locations.length > 1 && (
+                <TouchableOpacity
+                  // style={styles.deleteLocationButton}
+                  onPress={() => deleteLocation(index)}
+                >
+                  <MaterialCommunityIcons name="minus" size={24} color="black" />
+                </TouchableOpacity>
+              )}
+            </View>
+          ))}
+
+          <View style={styles.separator} />
+          <View style={styles.galleryHeader}>
+            <Text style={styles.leftAlignedText}>Galerie</Text>
+            <TouchableOpacity
+              style={styles.galleryUploadButton}
+              onPress={() => pickImage(addToGallery)}
+            >
+              <Text style={styles.leftAlignedText}>Adaugă imagine</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.galleryContainer}>
+            {galleryImages.map((image, index) => (
+              <View key={index} style={styles.imageContainer}>
+                <Image source={{ uri: image }} style={styles.galleryImage} />
+                <TouchableOpacity
+                  style={styles.deleteImageButton}
+                  onPress={() => deleteGalleryImage(index)}
+                >
+                  <Text style={styles.deleteImageButtonText}>×</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </View>
+          <View style={styles.separator} />
+          <TouchableOpacity onPress={onSave} style={styles.saveButton}>
+            <Text style={styles.saveButtonText}>Salvează</Text>
+          </TouchableOpacity>
+        </ScrollView>
+      )}
     </View>
   );
 }
@@ -416,6 +427,16 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingTop: 15,
+  },
+  loadingContainer: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
   },
   separator: {
     height: 2,
