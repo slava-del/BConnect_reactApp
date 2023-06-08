@@ -228,7 +228,7 @@ const styles = {
     textAlign: "center",
     justifyContent: "center",
   },
-  textContainer: { // new style for the texts container
+  textContainer: { 
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

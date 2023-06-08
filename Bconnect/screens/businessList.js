@@ -24,7 +24,13 @@ const BusinessCard = ({ business, onPress }) => {
         />
         <Card.Content>
           <Title style={styles.title}>{business.title}</Title>
-          <Paragraph style={styles.location}>{business.location}</Paragraph>
+          <View>
+            {business.location.map((location, index) => (
+              <Paragraph key={index} style={styles.location}>
+                {location}
+              </Paragraph>
+            ))}
+          </View>
         </Card.Content>
       </Card>
     </TouchableOpacity>
@@ -62,27 +68,37 @@ const BusinessList = ({ route }) => {
 
   return (
     <View style={styles.pageContainer}>
-      {loading && (
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("BottomTabNavigator", { screen: "CategoriesScreen" })}>
+        <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
+      </TouchableOpacity>
+
+      {loading ? (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#00273D" />
           <Text>Loading...</Text>
         </View>
-      )}
-      <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("BottomTabNavigator", { screen: "CategoriesScreen" })}>
-        <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
-      </TouchableOpacity>
-      <FlatList
-        data={businesses}
-        renderItem={({ item }) => (
-          <BusinessCard
-            key={item.id}
-            business={item}
-            onPress={() => handleCardPress(item)}
+      ) : businesses.length === 0 ? (
+        <View style={styles.noDataContainer}>
+          <Image
+            source={require('../assets/appGeneral/nothingImg.png')}
+            style={styles.noDataImage}
           />
-        )}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.container}
-      />
+          <Text style={{ fontSize: 15, fontWeight: "bold" }}>Nu am găsit afaceri pentru această categorie.</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={businesses}
+          renderItem={({ item }) => (
+            <BusinessCard
+              key={item.id}
+              business={item}
+              onPress={() => handleCardPress(item)}
+            />
+          )}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={styles.container}
+        />
+      )}
     </View>
   );
 };
@@ -114,6 +130,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#E3EAEC',
     zIndex: 1,
+  },
+  noDataContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20, 
+  },
+  noDataImage: {
+    width: 300,
+    height: 300,
+    resizeMode: 'contain', 
+    marginBottom: 20, 
   },
   card: {
     marginBottom: 20,
