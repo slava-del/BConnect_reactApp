@@ -114,21 +114,31 @@ export default function BusinessInfo() {
           {/* Section 4: Contact information */}
           <View style={styles.contactContainer}>
             <Text style={styles.contactTitle}>Date de contact</Text>
+            
+            {/* Phone Numbers */}
             <View style={styles.phoneContainer}>
-              <MaterialCommunityIcons name="phone" size={24} color="black" />
-              {businessData.phoneNumbers &&
-                businessData.phoneNumbers.map((number, index) => (
-                  <Text key={index} style={styles.phoneNumber}>
-                    {number}
-                  </Text>
-                ))}
+              {businessData.phoneNumbers && (
+                <View style={styles.phoneContainer}>
+                  <MaterialCommunityIcons name="phone" size={24} color="black" />
+                  <View style={styles.phoneNumbers}>
+                    {businessData.phoneNumbers.map((number, index) => (
+                      <Text key={index} style={index % 2 === 0 ? styles.firstPhoneInRow : styles.secondPhoneInRow}>
+                        {number.trim()}
+                      </Text>
+                    ))}
+                  </View>
+                </View>
+              )}
             </View>
+
+            {/* email information */}        
             {businessData.email && (
               <View style={styles.emailContainer}>
                 <MaterialCommunityIcons name="email" size={24} color="black" />
                 <Text style={styles.email}>{businessData.email}</Text>
               </View>
             )}
+
             {/* Location information */}
             {businessData.locations && (
               <View style={styles.locationContainer}>
@@ -216,6 +226,13 @@ export default function BusinessInfo() {
     </View>
   );
 }
+function chunk(arr, size) {
+  let result = [];
+  for (let i = 0; i < arr.length; i += size) {
+    result.push(arr.slice(i, i + size));
+  }
+  return result;
+}
 
 const styles = StyleSheet.create({
   backgroundImageContainer: {
@@ -272,11 +289,23 @@ const styles = StyleSheet.create({
   },
   phoneContainer: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     marginBottom: 10,
   },
-  phoneNumber: {
+  phoneNumbers: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: 'wrap',
     marginLeft: 10,
+  },
+  firstPhoneInRow: {
+    width: '45%',
+    marginTop: 5,
+  },
+  secondPhoneInRow: {
+    width: '45%',
+    marginLeft: '10%',
+    marginTop: 5,
   },
   emailContainer: {
     flexDirection: "row",
@@ -284,26 +313,26 @@ const styles = StyleSheet.create({
   },
   email: {
     marginLeft: 10,
-},
-locationContainer: {
+  },
+  locationContainer: {
     flexDirection: "row",
     alignItems: "flex-start",
     marginTop: 10,
-},
-locations: {
-  flex: 1,  
-  marginLeft: 10,
-},
-location: {
+  },
+  locations: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  location: {
     width: '90%',
-    marginTop: 5, 
-},
-aboutContainer: {
+    marginTop: 5,
+  },
+  aboutContainer: {
     marginBottom: 20,
-},
-boldText: {
-    fontWeight: 'bold', 
-},
+  },
+  boldText: {
+    fontWeight: 'bold',
+  },
   aboutTitle: {
     fontSize: 20,
     fontWeight: "bold",

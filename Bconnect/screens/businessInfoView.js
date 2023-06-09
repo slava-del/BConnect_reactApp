@@ -86,15 +86,20 @@ const BusinessInfo = ({ route }) => {
           {/* Contact information */}
           <View style={styles.contactContainer}>
             <Text style={styles.contactTitle}>Date de contact</Text>
+
+            {/* Phone information */}
             <View style={styles.phoneContainer}>
               <MaterialCommunityIcons name="phone" size={24} color="black" />
-              {filteredData.phoneNumbers &&
-                filteredData.phoneNumbers.map((number, index) => (
-                  <Text key={index} style={styles.phoneNumber}>
-                    {number}
+              <View style={styles.phoneNumbers}>
+                {filteredData.phoneNumbers.map((number, index) => (
+                  <Text key={index} style={index % 2 === 0 ? styles.firstPhoneInRow : styles.secondPhoneInRow}>
+                    {number.trim()}
                   </Text>
                 ))}
+              </View>
             </View>
+
+            {/* Email information */}
             {filteredData.email && (
               <View style={styles.emailContainer}>
                 <MaterialCommunityIcons name="email" size={24} color="black" />
@@ -246,11 +251,23 @@ const styles = StyleSheet.create({
   },
   phoneContainer: {
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     marginBottom: 10,
   },
-  phoneNumber: {
+  phoneNumbers: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: 'wrap',
     marginLeft: 10,
+  },
+  firstPhoneInRow: {
+    width: '45%',
+    marginTop: 5,
+  },
+  secondPhoneInRow: {
+    width: '45%',
+    marginLeft: '10%',
+    marginTop: 5,
   },
   emailContainer: {
     flexDirection: "row",
@@ -258,25 +275,26 @@ const styles = StyleSheet.create({
   },
   email: {
     marginLeft: 10,
-},
-locationContainer: {
+  },
+  locationContainer: {
     flexDirection: "row",
     alignItems: "flex-start",
     marginTop: 10,
-},
-locations: {
+  },
+  locations: {
+    flex: 1,
     marginLeft: 10,
-},
-location: {
+  },
+  location: {
     width: '90%',
     marginTop: 5, // Add a top margin to create space between location lines
-},
-aboutContainer: {
+  },
+  aboutContainer: {
     marginBottom: 20,
-},
-boldText: {
+  },
+  boldText: {
     fontWeight: 'bold', // Style for bold text
-},
+  },
   aboutTitle: {
     fontSize: 20,
     fontWeight: "bold",
