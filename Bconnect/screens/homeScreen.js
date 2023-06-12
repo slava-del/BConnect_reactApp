@@ -160,6 +160,7 @@ const styles = {
     fontSize: 20,
     marginHorizontal: 10,
     fontWeight: "bold",
+    textAlign: "center"
   },
   card: {
     width: 350,

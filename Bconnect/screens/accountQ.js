@@ -194,9 +194,9 @@ export default function AccountConfiguration() {
     <View style={styles.container}>
       {loading ? (
         <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#00273D" />
-        <Text>Loading...</Text>
-      </View>
+          <ActivityIndicator size="large" color="#00273D" />
+          <Text>Loading...</Text>
+        </View>
       ) : (
         <ScrollView style={styles.container}>
           {/* Profile image section */}
@@ -257,8 +257,8 @@ export default function AccountConfiguration() {
 
           <View style={styles.aboutSection}>
             <Text style={styles.leftAlignedText}>Despre</Text>
-            <TouchableOpacity style={styles.addButton} onPress={toggleEditPopup}>
-              <Text style={styles.leftAlignedText}>Adaugă</Text>
+            <TouchableOpacity style={styles.galleryUploadButton} onPress={toggleEditPopup}>
+              <Text style={[styles.leftAlignedText, styles.uploadText]}>Adaugă</Text>
             </TouchableOpacity>
             <EditPopup
               isVisible={isEditPopupVisible}
@@ -380,7 +380,6 @@ export default function AccountConfiguration() {
               ) : null}
               {locations.length > 1 && (
                 <TouchableOpacity
-                  // style={styles.deleteLocationButton}
                   onPress={() => deleteLocation(index)}
                 >
                   <MaterialCommunityIcons name="minus" size={24} color="black" />
@@ -396,7 +395,7 @@ export default function AccountConfiguration() {
               style={styles.galleryUploadButton}
               onPress={() => pickImage(addToGallery)}
             >
-              <Text style={styles.leftAlignedText}>Adaugă imagine</Text>
+              <Text style={[styles.leftAlignedText, styles.uploadText]}>Adaugă imagine</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.galleryContainer}>
@@ -440,7 +439,7 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 2,
-    backgroundColor: "black",
+    backgroundColor: "gray",
     marginVertical: 20,
   },
   pickerContainer: {
@@ -448,6 +447,8 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderRadius: 10,
     marginBottom: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   picker: {
     height: 50,
@@ -514,7 +515,8 @@ const styles = StyleSheet.create({
   },
   uploadText: {
     marginLeft: 5,
-    fontSize: 16,
+    fontSize: 18,
+    color: "#3F95EB",
   },
   profileImage: {
     width: 100,
@@ -534,10 +536,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-  },
-  addButton: {
-    alignSelf: "flex-end",
-    marginBottom: 10,
   },
   adviceText: {
     fontSize: 15,
@@ -580,7 +578,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     backgroundColor: "transparent",
     borderRadius: 5,
-    marginBottom: 10,
+    marginBottom: 5,
   },
   galleryImage: {
     width: "100%",
@@ -628,7 +626,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#096780",
     paddingHorizontal: 20,
     paddingVertical: 10,
-    borderRadius: 5,
+    borderRadius: 10,
     marginBottom: 35,
   },
   saveButtonText: {

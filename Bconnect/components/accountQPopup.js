@@ -10,6 +10,8 @@ import {
   StyleSheet,
 } from "react-native";
 import Dialog from "react-native-dialog";
+import { useNavigation } from "@react-navigation/native";
+
 
 const EditPopup = ({
   isVisible,
@@ -40,6 +42,9 @@ const EditPopup = ({
     setDialogVisible(false);
   };
 
+
+
+
   const handleSubmit = () => {
     if (!submitDisabled) {
       console.log(`Cine suntem? ${cineSuntem}`);
@@ -57,17 +62,16 @@ const EditPopup = ({
 
   return (
     <Modal visible={isVisible} animationType="slide">
-      <KeyboardAvoidingView
-        style={styles.containerKeyboard}
-        behavior="height"
-        keyboardVerticalOffset={20}
-      >
+      <KeyboardAvoidingView style={styles.containerKeyboard} behavior="height" keyboardVerticalOffset={20}>
         <ScrollView>
           <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Editează secțiunea despre</Text>
-            <Text style={styles.modalDescription}>
-              Răspunde la următoarele întrebări:
-            </Text>
+              <Text style={styles.modalTitle}>Editează secțiunea despre</Text>
+            <View style={styles.modalHeader}>
+              <TouchableOpacity onPress={onClose} style={{ alignSelf: 'flex-end', right: 10, top: -35 }}>
+                <Text style={{ fontSize: 28, fontWeight: 'bold', color: 'black' }}>×</Text>
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.modalDescription}>Răspunde la următoarele întrebări:</Text>
             <Text style={styles.modalTitleQuestions}>Cine suntem?</Text>
             <TextInput
               multiline={true}
@@ -79,9 +83,7 @@ const EditPopup = ({
               style={styles.modalInput}
             />
 
-            {cineSuntem.length < 50 && (
-              <Text style={styles.modalTempText}>Minim 50 de caractere</Text>
-            )}
+            {cineSuntem.length < 50 && <Text style={styles.modalTempText}>Minim 50 de caractere</Text>}
 
             <Text style={styles.modalTitleQuestions}>Ce facem?</Text>
             <TextInput
@@ -94,13 +96,9 @@ const EditPopup = ({
               style={styles.modalInput}
             />
 
-            {ceFacem.length < 50 && (
-              <Text style={styles.modalTempText}>Minim 50 de caractere</Text>
-            )}
+            {ceFacem.length < 50 && <Text style={styles.modalTempText}>Minim 50 de caractere</Text>}
 
-            <Text style={styles.modalTitleQuestions}>
-              Care este scopul nostru?
-            </Text>
+            <Text style={styles.modalTitleQuestions}>Care este scopul nostru?</Text>
             <TextInput
               multiline={true}
               textAlignVertical="top"
@@ -111,26 +109,11 @@ const EditPopup = ({
               style={styles.modalInput}
             />
 
-            {careEsteScopul.length < 50 && (
-              <Text style={styles.modalTempText}>Minim 50 de caractere</Text>
-            )}
+            {careEsteScopul.length < 50 && <Text style={styles.modalTempText}>Minim 50 de caractere</Text>}
 
             <TouchableOpacity onPress={handleSubmit}>
               <Text style={[styles.submitButton, submitDisabled && styles.disabledButton]}>Salvează</Text>
             </TouchableOpacity>
-
-            <Dialog.Container visible={dialogVisible}>
-              <View style={styles.dialogContent}>
-                <Dialog.Title>Avertisment!</Dialog.Title>
-                <Dialog.Description>
-                  Toate câmpurile trebuie să conțină minim 50 caractere.
-                </Dialog.Description>
-                <View style={styles.dialogButton}>
-                  <Dialog.Button label="OK" onPress={handleOk} />
-                </View>
-              </View>
-            </Dialog.Container>
-
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -155,9 +138,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   modalTitle: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 5,
+    paddingTop: 10,
+    marginBottom: 1,
     textAlign: "center",
   },
   modalContainer: {
@@ -175,7 +159,7 @@ const styles = StyleSheet.create({
   modalInput: {
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 5,
+    borderRadius: 10,
     padding: 10,
     marginBottom: 10,
     textAlignVertical: "top",
@@ -186,7 +170,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 10,
     fontWeight: "bold",
     marginTop: 10,
   },
@@ -212,7 +196,7 @@ const styles = StyleSheet.create({
   modalDescription: {
     fontSize: 17,
     fontWeight: "bold",
-    marginTop: 60,
+    marginTop: 20,
     marginBottom: 20,
     textAlign: "left",
   },
