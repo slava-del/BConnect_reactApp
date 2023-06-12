@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, Text, Image, TouchableOpacity, ActivityIndicator } from "react-native";
+import { ScrollView, View, Text, Image, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 
 import businessesData from "../data/businessesData";
 
@@ -11,7 +12,7 @@ const CardSections = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("Start loading images");
+    console.log("Start loading homeScreen content");
     const loadImages = async () => {
       await Promise.all(
         businessesData.map(async (business) => {
@@ -27,7 +28,7 @@ const CardSections = () => {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#00273D" />
+        <LottieView source={require('../assets/appGeneral/animationSplash.json')} autoPlay loop />
       </View>
     );
   }

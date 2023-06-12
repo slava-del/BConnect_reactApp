@@ -16,7 +16,7 @@ import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import { ActivityIndicator } from "react-native";
+import LottieView from 'lottie-react-native';
 
 
 import EditPopup from "../components/accountQPopup";
@@ -194,8 +194,7 @@ export default function AccountConfiguration() {
     <View style={styles.container}>
       {loading ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#00273D" />
-          <Text>Loading...</Text>
+          <LottieView source={require('../assets/appGeneral/animationSplash.json')} autoPlay loop />
         </View>
       ) : (
         <ScrollView style={styles.container}>
