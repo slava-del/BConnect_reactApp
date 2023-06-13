@@ -48,7 +48,11 @@ const BusinessList = ({ route }) => {
     const loadImages = async () => {
       await Promise.all(
         businessesData.map(async (business) => {
-          await Image.prefetch(business.coverImage);
+          try {
+            await Image.prefetch(business.coverImage);
+          } catch (err) {
+            console.warn("Error prefetching image", err);
+          }
         })
       );
       setLoading(false);
@@ -56,7 +60,6 @@ const BusinessList = ({ route }) => {
 
     loadImages();
   }, []);
-
   // Business filtering
   const businesses = businessesData.filter(business =>
     business.category.subcategory === subcategory
@@ -135,13 +138,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20, 
+    paddingHorizontal: 20,
   },
   noDataImage: {
     width: 300,
     height: 300,
-    resizeMode: 'contain', 
-    marginBottom: 20, 
+    resizeMode: 'contain',
+    marginBottom: 20,
   },
   card: {
     marginBottom: 20,

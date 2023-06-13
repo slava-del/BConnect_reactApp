@@ -15,13 +15,15 @@ const CardSections = () => {
     console.log("Start loading homeScreen content");
     const loadImages = async () => {
       await Promise.all(
-        businessesData.map(async (business) => {
-          await Image.prefetch(business.coverImage);
-        })
+        businessesData.map((business) => 
+          Image.prefetch(business.coverImage).catch(error => {
+            console.error('Failed to load image: ' + business.coverImage, error);
+          })
+        )
       );
       setLoading(false);
     };
-
+  
     loadImages();
   }, []);
 
@@ -56,7 +58,8 @@ const CardSections = () => {
             id: business.id,
             imageUrl: business.coverImage,
             cardText: business.title,
-            cardDescription: business.greetText
+            cardDescription: business.greetText,
+            location: business.location,  // Add this line
           });
           return sections;
         }, {})).map(([_, section]) => (
@@ -80,10 +83,28 @@ const CardSections = () => {
                     </Text>
                   </View>
                   <View style={styles.buttons}>
-                    <TouchableOpacity style={styles.locationButton}>
-                      <MaterialCommunityIcons name="map-marker" size={18} color="#00273D"/>
+
+                    <TouchableOpacity
+                      style={styles.locationButton}
+                      onPress={() =>
+                        navigation.navigate('BottomTabNavigator', {
+                          screen: 'Hartă',
+                          params: { locations: card.location }
+                        })
+                      }
+                    >
+                      <MaterialCommunityIcons name="map-marker" size={18} color="#00273D" />
                       <Text style={styles.buttonText}>Locație</Text>
                     </TouchableOpacity>
+
+                    {/* <TouchableOpacity
+                      style={styles.locationButton}
+                      onPress={() => navigation.navigate('MapViewScreen', { locations: card.location })} // Change 'business' to 'card'
+                    >
+                      <MaterialCommunityIcons name="map-marker" size={18} color="#00273D" />
+                      <Text style={styles.buttonText}>Locație</Text>
+                    </TouchableOpacity> */}
+
                     <TouchableOpacity
                       style={styles.callButton}
                       onPress={() => navigation.navigate('BusinessInfoView', { business: card })}
@@ -230,7 +251,7 @@ const styles = {
     textAlign: "center",
     justifyContent: "center",
   },
-  textContainer: { 
+  textContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
