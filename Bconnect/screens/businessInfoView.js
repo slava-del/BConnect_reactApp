@@ -49,7 +49,10 @@ const BusinessInfo = ({ route }) => {
   return (
     <View>
       <ScrollView>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("BusinessList", { subcategory: filteredData.category.subcategory })}>
+        {/* <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate("BusinessList", { subcategory: filteredData.category.subcategory })}>
+          <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
+        </TouchableOpacity> */}
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
           <MaterialCommunityIcons name="arrow-left" size={24} color="black" />
         </TouchableOpacity>
         {/*Background image and logo */}
