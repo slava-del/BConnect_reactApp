@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { ScrollView, StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import MapView, { Marker, Callout } from 'react-native-maps';
 import { useFocusEffect } from '@react-navigation/native';
@@ -8,8 +8,12 @@ import LottieView from 'lottie-react-native';
 const MapViewScreen = ({ route, navigation }) => {
   const [coordinates, setCoordinates] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedLocation, setSelectedLocation] = useState(null); 
+  const [selectedLocation, setSelectedLocation] = useState(null);
   const mapRef = useRef(null); // Reference to the MapView component
+
+  const handleMarkerPress = (location, index) => {
+    setSelectedLocation({ index, location });
+  }
 
   useFocusEffect(
     useCallback(() => {
@@ -18,35 +22,41 @@ const MapViewScreen = ({ route, navigation }) => {
   );
 
   const getGeocodes = async (locations) => {
-    // Check if locations are provided
-    if (locations && locations.length) {
+    setLoading(true); // Reset loading state
+    setCoordinates([]); // Reset coordinates state
+
+    // If locations are provided, get their geocodes
+    if (locations && locations.length > 0) {
       const coor = [];
-      for (const location of locations) {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyAd_hU6yDLrbmJ_8C5cwlJ-CpfayjeKzfs`);
-        coor.push(response.data.results[0].geometry.location);
+      try {
+        for (const location of locations) {
+          const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyAd_hU6yDLrbmJ_8C5cwlJ-CpfayjeKzfs`);
+          coor.push(response.data.results[0].geometry.location);
+        }
+      } catch (error) {
+        console.error(error);
       }
       setCoordinates(coor);
-      setLoading(false);
+      setLoading(false); // Stop loading after geocodes are fetched
 
-      // fit to the markers after loading
-      mapRef.current.fitToCoordinates(coor, {
-        edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
-        animated: true,
-      });
+      // Delay the fitToCoordinates call even more
+      setTimeout(() => {
+        if (mapRef.current && coor.length > 0) {
+          mapRef.current.fitToCoordinates(
+            coor.map(c => ({ latitude: c.lat, longitude: c.lng })),
+            {
+              edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+              animated: true,
+            }
+          );
+        }
+      }, 2000);
     } else {
-      // No locations provided, set the map to focus on Moldova
-      mapRef.current.animateToRegion({
-        latitude: 47.411631,
-        longitude: 28.369885,
-        latitudeDelta: 3.5,
-        longitudeDelta: 3.5,
-      }, 1000); // The duration of the animation can be set here
-      setLoading(false);
+      // No locations provided, delay for 1 second before setting loading to false
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
-  }
-
-  const handleMarkerPress = (location, index) => {
-    setSelectedLocation({ index, location });
   }
 
   return (
@@ -56,10 +66,10 @@ const MapViewScreen = ({ route, navigation }) => {
           <LottieView source={require('../assets/appGeneral/animationSplash.json')} autoPlay loop />
         </View>
       ) : (
-        <MapView 
+        <MapView
           style={{ flex: 1 }}
           ref={mapRef}
-          initialRegion={{
+          initialRegion={coordinates.length > 0 ? null : {
             latitude: 47.411631,
             longitude: 28.369885,
             latitudeDelta: 3.5,

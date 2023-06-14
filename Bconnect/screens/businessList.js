@@ -11,6 +11,8 @@ import {
 import { Card, Title, Paragraph } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import LottieView from 'lottie-react-native';
+
 import businessesData from "../data/businessesData";
 
 
@@ -44,7 +46,7 @@ const BusinessList = ({ route }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("Start loading images");
+    console.log("Start loading list");
     const loadImages = async () => {
       await Promise.all(
         businessesData.map(async (business) => {
@@ -55,7 +57,10 @@ const BusinessList = ({ route }) => {
           }
         })
       );
-      setLoading(false);
+
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     };
 
     loadImages();
@@ -77,8 +82,11 @@ const BusinessList = ({ route }) => {
 
       {loading ? (
         <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#00273D" />
-          <Text>Loading...</Text>
+          <LottieView
+            source={require('../assets/appGeneral/animationSplash.json')} 
+            autoPlay
+            loop
+          />
         </View>
       ) : businesses.length === 0 ? (
         <View style={styles.noDataContainer}>
