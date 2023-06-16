@@ -39,7 +39,6 @@ const MapViewScreen = ({ route, navigation }) => {
       setCoordinates(coor);
       setLoading(false); // Stop loading after geocodes are fetched
 
-      // Delay the fitToCoordinates call even more
       setTimeout(() => {
         if (mapRef.current && coor.length > 0) {
           mapRef.current.fitToCoordinates(
@@ -52,7 +51,6 @@ const MapViewScreen = ({ route, navigation }) => {
         }
       }, 2000);
     } else {
-      // No locations provided, delay for 1 second before setting loading to false
       setTimeout(() => {
         setLoading(false);
       }, 1000);

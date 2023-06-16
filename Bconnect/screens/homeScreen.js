@@ -51,7 +51,7 @@ const CardSections = () => {
         </View>
 
         {Object.entries(businessesData.reduce((sections, business) => {
-          const category = business.category.title; 
+          const category = business.category.title;
           if (!sections[category]) {
             sections[category] = {
               id: category,
@@ -64,7 +64,7 @@ const CardSections = () => {
             imageUrl: business.coverImage,
             cardText: business.title,
             cardDescription: business.greetText,
-            location: business.location,
+            location: business.locationFizic,
           });
           return sections;
         }, {})).map(([_, section]) => (
@@ -92,15 +92,13 @@ const CardSections = () => {
                     <TouchableOpacity
                       style={styles.locationButton}
                       onPress={() =>
-                        navigation.navigate('BottomTabNavigator', {
-                          screen: 'Hartă',
-                          params: { locations: card.location }
-                        })
+                        navigation.navigate('MapViewScreen', { locations: card.location }) 
                       }
                     >
                       <MaterialCommunityIcons name="map-marker" size={18} color="#00273D" />
                       <Text style={styles.buttonText}>Locație</Text>
                     </TouchableOpacity>
+
 
                     {/* <TouchableOpacity
                       style={styles.locationButton}
