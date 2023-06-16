@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
   galleryImage: {
     width: 100,
     height: 100,
-    margin: 6,
+    margin: 2,
     borderRadius: 5,
   },
   fullScreenImageContainer: {

@@ -4,7 +4,7 @@ import LottieView from 'lottie-react-native';
 export default function SplashScreen({ navigation }) {
     useEffect(() => {
         setTimeout(() => {
-          navigation.replace('OnboardingSt'); 
+          navigation.replace('OnboardingFinal'); 
         }, 7000); 
     }, []);
 

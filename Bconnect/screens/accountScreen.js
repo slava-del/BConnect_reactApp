@@ -9,6 +9,7 @@ import {
   Image,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 import BusinessuserInfo from './businessUserInfo'
 
@@ -45,6 +46,12 @@ const AccountConfig = ({ navigation }) => {
       console.log(error);
     }
   };
+  
+  useFocusEffect(
+    React.useCallback(() => {
+      checkVisited();
+    }, [])
+  );
 
   const handleAddAction = async () => {
     try {

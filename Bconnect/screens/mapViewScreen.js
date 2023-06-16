@@ -30,7 +30,7 @@ const MapViewScreen = ({ route, navigation }) => {
       const coor = [];
       try {
         for (const location of locations) {
-          const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyAd_hU6yDLrbmJ_8C5cwlJ-CpfayjeKzfs`);
+          const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyDTtJS8peqsr8koE0oFKLFdNjBj7a5jfc8`);
           coor.push(response.data.results[0].geometry.location);
         }
       } catch (error) {

@@ -181,7 +181,7 @@ const businessesData = [
     logo: "https://scontent.ftce1-1.fna.fbcdn.net/v/t1.18169-9/17458063_1312720562153053_3037108099518055168_n.png?_nc_cat=110&ccb=1-7&_nc_sid=9267fe&_nc_ohc=jtTtHVA6q54AX894NHq&_nc_ht=scontent.ftce1-1.fna&oh=00_AfAm57wNMxoaB0R5qdhYbvy3tMBwZYiURo961v3q_FE80A&oe=64A6596F",
     title: "Orhei Vit",
     coverImage:
-      "https://i0.wp.com/orhei-vit.com/wp-content/uploads/2019/02/Orhei-Vit.png?fit=1200%2C400&ssl=1",
+      "https://i.simpalsmedia.com/content/gallery/original/0eb065c1123afb630fdd6aa4f1c0914d.jpg",
     location: ["Strada Alunei, satul Cornești, raionul Ungheni"],
     phoneNumbers: ["022 82 53 53"],
     email: "orhei@vit.com",
@@ -196,7 +196,7 @@ const businessesData = [
     images: [
       "https://www.mold-street.com/news_img/2014/08/14/news1_big.jpg",
       "https://noi.md/uploads/newsthumbs/760_500/434445.jpg",
-      "https://i0.wp.com/orhei-vit.com/wp-content/uploads/2019/02/Foto_factory_lines_03-1-1024x734.png?resize=930%2C667",
+      "https://packagingoftheworld.com/wp-content/uploads/2022/05/3-copy.jpg",
       "https://agroexpert.md/pic/news/gallery/1412/1111.jpeg",
       "https://live.staticflickr.com/3679/9604506899_441b134b35_b.jpg",
     ],

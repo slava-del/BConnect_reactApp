@@ -1,119 +1,196 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, ImageBackground, TouchableOpacity } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import PopupReg from './popupRegister';
-import PopupLog from './popupLog';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+  Image,
+  StatusBar,
+  Animated,
+  FlatList,
+  imageSize
+} from 'react-native';
 
-import backgroundImage from '../assets/backgroundOnSt.jpg';
+const { width } = Dimensions.get('window');
 
-export default function App() {
-  const [regModalVisible, setRegModalVisible] = useState(false);
-  const [logModalVisible, setLogModalVisible] = useState(false);
+const OnboardingScreen = ({ navigation }) => {
+  const steps = [
+    { id: '1', text: 'Caută', image: require('../assets/onboarding/firstImage.png') },
+    { id: '2', text: 'Găsește', image: require('../assets/onboarding/secondImage.png') },
+    { id: '3', text: 'Acționează', image: require('../assets/onboarding/thirdImage.png') },
+  ];
 
-  const handleLoginClick = () => {
-    setRegModalVisible(false);
-    setLogModalVisible(true);
-  };
+  const [step, setStep] = useState(0);
+  const flatListRef = useRef();
+  const animation = useRef(new Animated.Value(0)).current;
 
-  const handleRegisterClick = () => {
-    setLogModalVisible(false);
-    setRegModalVisible(true);
-  };
+  useEffect(() => {
+    const progress = () => {
+      animation.setValue(0);
+      Animated.timing(animation, {
+        toValue: 1,
+        duration: 5000,
+        useNativeDriver: false,
+      }).start();
+    };
+
+    progress();
+    const interval = setInterval(() => {
+      if (step < steps.length - 1) {
+        setStep(step + 1);
+        flatListRef.current.scrollToIndex({ index: step + 1 });
+        progress();
+      } else {
+        clearInterval(interval);
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [step]);
+
+  const progressBarWidth = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0%', '100%'],
+  });
+
+
+  const renderStep = ({ item }) => (
+    <View style={styles.step}>
+      <View style={styles.imageContainer}>
+        <Image source={item.image} style={styles.image} />
+      </View>
+      <Text style={styles.text}>{item.text}</Text>
+    </View>
+  );
+
+  const imageSize = 35;
 
   return (
-    <ImageBackground 
-      style={styles.container}
-      source={backgroundImage}
-      blurRadius={0}
-    >
-
-      <StatusBar style="auto" />
-
-      { !regModalVisible && !logModalVisible && (
-        <>
-          <Text style={styles.firstText}>Alătură-te comunității noastre de utilizatori</Text>
-          <Text style={styles.secondText}>
-            Descoperă cele mai bune afaceri locale din Republica Moldova
-          </Text>
-          <Text style={styles.thirdText}>
-            Simplu și ușor
-          </Text>
-          <TouchableOpacity
-            style={styles.exploreBtn}
-            onPress={() => setRegModalVisible(true)}
-          >
-            <Text style={styles.exploreBtnTxt}>Înregistrează-te</Text>
-          </TouchableOpacity>
-        </>
-      )}
-
-      <PopupReg
-        isVisible={regModalVisible}
-        onClose={() => setRegModalVisible(false)}
-        onLoginClick={handleLoginClick}
+    <View style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <View style={styles.container}>
+        <View style={styles.logoContainer}>
+          <Image
+            source={require('../assets/logo.png')}
+            style={[styles.logo, { width: imageSize, height: imageSize }]}
+          />
+          <Text style={styles.logoText}>BConnect</Text>
+        </View>
+      </View>
+      <FlatList
+        ref={flatListRef}
+        data={steps}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={renderStep}
       />
-
-      <PopupLog
-        isVisible={logModalVisible}
-        onClose={() => setLogModalVisible(false)}
-        onRegisterClick={handleRegisterClick}
-      />
-    </ImageBackground>
+      <View style={styles.progressBar}>
+        <Animated.View style={[styles.progress, { width: progressBarWidth }]} />
+      </View>
+      <View style={styles.registerContainer}>
+        <TouchableOpacity
+          style={styles.registerButton}
+          onPress={() =>
+            navigation.navigate("BottomTabNavigator", { screen: "Home" })
+          }
+        >
+          <Text style={styles.registerText}>Înregistrează-te</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("BottomTabNavigator", { screen: "Home" })
+          }
+        >
+          <Text style={styles.loginText}>Ai deja un cont? Autentifică-te.</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
-}
-
-
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3A0CA3',
+    justifyContent: 'space-between',
+    backgroundColor: "white"
+  },
+  logoContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 50,
   },
-  Image: {
-    width:274,
-    height:274,
-  },
-  firstText:{
-    fontSize:27,
-    fontWeight:"bold",
-    color:"black",
-    width:"90%",
-    textAlign:"left",
-    marginBottom:10,
-    lineHeight:34,
-    top: 150,
-  },
-  secondText: {
-    width:"90%",
-    color:"black",
-    fontSize:19,
-    fontWeight:"bold",
-    lineHeight:24,
-    top: 150,
-  },
-  thirdText: {
-    width:"90%",
-    color:"black",
-    fontSize:15,
-    fontWeight:"bold",
-    lineHeight:24,
-    top: 150,
-  },
-  exploreBtn:{
-    width:"65%",
-    backgroundColor:'#3F95EB',
-    height:50,
-    borderRadius:20,
-    justifyContent:"center",
-    alignItems:"center",
+  logo: {
+    width: imageSize,
+    height: imageSize,
     position: 'absolute',
-    bottom: 80,
+    left: 117,
   },
-  exploreBtnTxt: {
-    color:"white",
+  logoText: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: "bold"
+  },
+  step: {
+    width: width,
+    paddingHorizontal: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageContainer: {
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 35,
     fontWeight: "bold",
-    fontSize: 15,
+    textAlign: 'center',
+    marginTop: 10,
+  },
+  image: {
+    width: 400,
+    height: 400,
+    resizeMode: 'contain',
+  },
+  progressBar: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 180,
+    height: 10,
+    marginHorizontal: 70,
+  },
+  progress: {
+    borderRadius: 50,
+    backgroundColor: '#3F95EB',
+    height: '80%',
+  },
+  registerContainer: {
+    width: '100%',
+    borderRadius: 10,
+    padding: 10,
+    alignItems: "center",
+    marginBottom: 40,
+  },
+  registerButton: {
+    backgroundColor: '#3F95EB',
+    borderRadius: 10,
+    padding: 10,
+    width: 300,
+    alignItems: 'center',
+  },
+  registerText: {
+    fontSize: 18,
+    color: '#fff',
+  },
+  loginText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: 'gray',
+    textAlign: 'center',
   },
 });
+
+export default OnboardingScreen;

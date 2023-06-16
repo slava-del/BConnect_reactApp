@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import ImageZoom from 'react-native-image-pan-zoom';
 
 
+
 import businessesData from "../data/businessesData";
 
 const BusinessInfo = ({ route }) => {
@@ -296,7 +297,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   boldText: {
-    fontWeight: 'bold', // Style for bold text
+    fontWeight: 'bold', 
   },
   aboutTitle: {
     fontSize: 20,
@@ -323,7 +324,7 @@ const styles = StyleSheet.create({
   galleryImage: {
     width: 100,
     height: 100,
-    margin: 6,
+    margin: 2,
     borderRadius: 5,
   },
   fullScreenImageContainer: {

@@ -24,7 +24,10 @@
     <meta-data android:name="expo.modules.updates.EXPO_UPDATE_URL" android:value="https://exp.host/@0darksoul0/business-connections-moldova"/>
     <activity android:name=".MainActivity" android:label="@string/app_name" android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode" android:launchMode="singleTask" android:windowSoftInputMode="adjustResize" android:theme="@style/Theme.App.SplashScreen" android:exported="true" android:screenOrientation="portrait">
       
-    <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAd_hU6yDLrbmJ_8C5cwlJ-CpfayjeKzfs"/>
+    <meta-data
+    android:name="com.google.android.geo.API_KEY"
+    android:value="AIzaSyDTtJS8peqsr8koE0oFKLFdNjBj7a5jfc8"
+  />
     
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>

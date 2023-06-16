@@ -4,8 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 //screens
 import SplashScreen from '../screens/splashScreen'
-import OnboardingSt from '../screens/onboardingStart';
-import OnboardingTr from '../screens/onboardingTr';
 import OnboardingFinal from '../screens/onboardingFinal';
 import AccountScreen from '../screens/accountScreen';
 import MapViewScreen from '../screens/mapViewScreen';
@@ -27,8 +25,6 @@ export default function MainStackNavigator() {
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="OnboardingSt" component={OnboardingSt} options={{ headerShown: false }} />
-        <Stack.Screen name="OnboardingTr" component={OnboardingTr} options={{ headerShown: false }} />
         <Stack.Screen name="OnboardingFinal" component={OnboardingFinal} options={{ headerShown: false }} />
         <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} options={{ headerShown: false }} />
         <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} options={{ headerShown: false }} />
