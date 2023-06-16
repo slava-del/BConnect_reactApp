@@ -25,7 +25,7 @@ const MapViewScreen = ({ route, navigation }) => {
     setLoading(true); // Reset loading state
     setCoordinates([]); // Reset coordinates state
 
-    // If locations provided, get geocodes
+    // If locations are provided, get their geocodes
     if (locations && locations.length > 0) {
       const coor = [];
       try {

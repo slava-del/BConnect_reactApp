@@ -37,12 +37,10 @@ const CardSections = () => {
 
   return (
     <View style={styles.container}>
-
       <StatusBar
         backgroundColor="transparent"
         translucent={true}
       />
-
       <ScrollView vertical={true} showsVerticalScrollIndicator={false}>
 
         <View style={styles.logoTextContainer}>
@@ -51,20 +49,19 @@ const CardSections = () => {
         </View>
 
         {Object.entries(businessesData.reduce((sections, business) => {
-          const category = business.category.title; 
-          if (!sections[category]) {
-            sections[category] = {
-              id: category,
-              title: category,
+          const subcategory = business.category.subcategory;
+          if (!sections[subcategory]) {
+            sections[subcategory] = {
+              id: subcategory,
+              title: subcategory,
               cards: []
             }
           }
-          sections[category].cards.push({
+          sections[subcategory].cards.push({
             id: business.id,
             imageUrl: business.coverImage,
             cardText: business.title,
             cardDescription: business.greetText,
-            location: business.location,
           });
           return sections;
         }, {})).map(([_, section]) => (
@@ -156,8 +153,8 @@ const styles = {
   logoTextContainer: {
     flexDirection: "row",
     alignItems: "center",
-    // marginBottom: 10,
-    // paddingLeft: 20,
+    marginBottom: 10,
+    paddingLeft: 20,
   },
   logo: {
     marginRight: 10,
