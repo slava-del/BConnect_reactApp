@@ -51,20 +51,20 @@ const CardSections = () => {
         </View>
 
         {Object.entries(businessesData.reduce((sections, business) => {
-          const subcategory = business.category.subcategory;
-          if (!sections[subcategory]) {
-            sections[subcategory] = {
-              id: subcategory,
-              title: subcategory,
+          const category = business.category.title; 
+          if (!sections[category]) {
+            sections[category] = {
+              id: category,
+              title: category,
               cards: []
             }
           }
-          sections[subcategory].cards.push({
+          sections[category].cards.push({
             id: business.id,
             imageUrl: business.coverImage,
             cardText: business.title,
             cardDescription: business.greetText,
-            location: business.location,  // Add this line
+            location: business.location,
           });
           return sections;
         }, {})).map(([_, section]) => (
