@@ -112,7 +112,7 @@ const BusinessInfo = ({ route }) => {
             )}
 
             {/* Location information */}
-            {filteredData.locationFizic && (
+            {filteredData.locationFizic && filteredData.locationFizic.length > 0 && (
               <View style={styles.locationContainer}>
                 <MaterialCommunityIcons name="map-marker" size={24} color="black" />
                 <View style={styles.locations}>
@@ -126,7 +126,7 @@ const BusinessInfo = ({ route }) => {
               </View>
             )}
 
-            {filteredData.locationJuridic && (
+            {filteredData.locationJuridic && filteredData.locationJuridic.length > 0 && (
               <View style={styles.locationContainer}>
                 <MaterialCommunityIcons name="map-marker-account" size={24} color="black" />
                 <View style={styles.locations}>
