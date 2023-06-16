@@ -32,7 +32,8 @@ export default function AccountConfiguration() {
   const [subCategory, setSubCategory] = useState("");
   const [phoneNumbers, setPhoneNumbers] = useState([""]);
   const [email, setEmail] = useState("");
-  const [locations, setLocations] = useState([""]);
+  const [adresaJuridica, setAdresaJuridica] = useState([""]);
+  const [adresaFizica, setAdresaFizica] = useState([""]);
   const [galleryImages, setGalleryImages] = useState([]);
   const [uploadedImages, setUploadedImages] = useState(Array(18).fill(null)); //max 18 images - section gallery
   const [selectedCategoryId, setSelectedCategoryId] = useState(1);
@@ -96,23 +97,42 @@ export default function AccountConfiguration() {
     setPhoneNumbers(phoneNumbers.filter((_, i) => i !== index));
   }
 
-  // Location input field
-  function addLocation() {
+  // Adresa Juridica input field
+  function addAdresaJuridica() {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setLocations([...locations, ""]);
+    setAdresaJuridica([...adresaJuridica, ""]);
   }
 
-  // Update location 
-  function updateLocation(index, value) {
-    let updatedLocations = [...locations];
-    updatedLocations[index] = value;
-    setLocations(updatedLocations);
+  // Update Adresa Juridica 
+  function updateAdresaJuridica(index, value) {
+    let updatedAdresaJuridica = [...adresaJuridica];
+    updatedAdresaJuridica[index] = value;
+    setAdresaJuridica(updatedAdresaJuridica);
   }
 
-  // Delete a location
-  function deleteLocation(index) {
+  // Delete Adresa Juridica
+  function deleteAdresaJuridica(index) {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setLocations(locations.filter((_, i) => i !== index));
+    setAdresaJuridica(adresaJuridica.filter((_, i) => i !== index));
+  }
+
+  // Adresa Fizica input field
+  function addAdresaFizica() {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setAdresaFizica([...adresaFizica, ""]);
+  }
+
+  // Update Adresa Fizica 
+  function updateAdresaFizica(index, value) {
+    let updatedAdresaFizica = [...adresaFizica];
+    updatedAdresaFizica[index] = value;
+    setAdresaFizica(updatedAdresaFizica);
+  }
+
+  // Delete Adresa Fizica
+  function deleteAdresaFizica(index) {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setAdresaFizica(adresaFizica.filter((_, i) => i !== index));
   }
 
   // Add an image to the gallery
@@ -139,7 +159,8 @@ export default function AccountConfiguration() {
       aboutCineSuntem,
       aboutCeFacem,
       aboutCareEsteScopul,
-      locations,
+      adresaFizica,
+      adresaJuridica
     };
 
     try {
@@ -162,7 +183,6 @@ export default function AccountConfiguration() {
         setSubCategory(businessData.subCategory || "");
         setPhoneNumbers(businessData.phoneNumbers || [""]);
         setEmail(businessData.email || "");
-        setLocations(businessData.locations || [""]);
         setProfileImage(businessData.profileImage || null);
         setCoverImage(businessData.coverImage || null);
         setGalleryImages(businessData.galleryImages || []);
@@ -170,13 +190,16 @@ export default function AccountConfiguration() {
         setAboutCineSuntem(businessData.aboutCineSuntem || "");
         setAboutCeFacem(businessData.aboutCeFacem || "");
         setAboutCareEsteScopul(businessData.aboutCareEsteScopul || "");
+
+        setAdresaJuridica(businessData.adresaJuridica || [""]);
+        setAdresaFizica(businessData.adresaFizica || [""]);
       } else {
         console.log("No data found");
       }
     } catch (error) {
       console.error("Error loading data:", error);
     } finally {
-      setLoading(false); // set loading to false when the data has loaded
+      setLoading(false);
     }
   }
 
@@ -360,26 +383,52 @@ export default function AccountConfiguration() {
 
           <View style={styles.separator} />
 
-          <Text style={styles.leftAlignedText}>Locație</Text>
-          {locations.map((location, index) => (
+          <Text style={styles.leftAlignedText}>Adresa juridică</Text>
+          {adresaJuridica.map((location, index) => (
             <View key={index} style={styles.phoneNumberRow}>
               <TextInput
                 style={styles.phoneNumberInput}
                 value={location}
-                placeholder="Locație"
-                onChangeText={(value) => updateLocation(index, value)}
+                placeholder="Adresa juridică"
+                onChangeText={(value) => updateAdresaJuridica(index, value)}
               />
-              {index === locations.length - 1 ? (
+              {index === adresaJuridica.length - 1 ? (
                 <TouchableOpacity
                   style={styles.addPhoneButton}
-                  onPress={addLocation}
+                  onPress={addAdresaJuridica}
                 >
                   <MaterialCommunityIcons name="plus" size={24} color="black" />
                 </TouchableOpacity>
               ) : null}
-              {locations.length > 1 && (
+              {adresaJuridica.length > 1 && (
                 <TouchableOpacity
-                  onPress={() => deleteLocation(index)}
+                  onPress={() => deleteAdresaJuridica(index)}
+                >
+                  <MaterialCommunityIcons name="minus" size={24} color="black" />
+                </TouchableOpacity>
+              )}
+            </View>
+          ))}
+          <Text style={styles.leftAlignedText}>Adresa fizică</Text>
+          {adresaFizica.map((address, index) => (
+            <View key={index} style={styles.phoneNumberRow}>
+              <TextInput
+                style={styles.phoneNumberInput}
+                value={address}
+                placeholder="Adresa fizică"
+                onChangeText={(value) => updateAdresaFizica(index, value)}
+              />
+              {index === adresaFizica.length - 1 ? (
+                <TouchableOpacity
+                  style={styles.addPhoneButton}
+                  onPress={addAdresaFizica}
+                >
+                  <MaterialCommunityIcons name="plus" size={24} color="black" />
+                </TouchableOpacity>
+              ) : null}
+              {adresaFizica.length > 1 && (
+                <TouchableOpacity
+                  onPress={() => deleteAdresaFizica(index)}
                 >
                   <MaterialCommunityIcons name="minus" size={24} color="black" />
                 </TouchableOpacity>

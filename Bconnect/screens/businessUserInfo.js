@@ -114,7 +114,7 @@ export default function BusinessInfo() {
           {/* Section 4: Contact information */}
           <View style={styles.contactContainer}>
             <Text style={styles.contactTitle}>Date de contact</Text>
-            
+
             {/* Phone Numbers */}
             <View style={styles.phoneContainer}>
               {businessData.phoneNumbers && (
@@ -131,7 +131,7 @@ export default function BusinessInfo() {
               )}
             </View>
 
-            {/* email information */}        
+            {/* email information */}
             {businessData.email && (
               <View style={styles.emailContainer}>
                 <MaterialCommunityIcons name="email" size={24} color="black" />
@@ -140,13 +140,27 @@ export default function BusinessInfo() {
             )}
 
             {/* Location information */}
-            {businessData.locations && (
+            {businessData.adresaJuridica && (
               <View style={styles.locationContainer}>
                 <MaterialCommunityIcons name="map-marker" size={24} color="black" />
                 <View style={styles.locations}>
-                  {businessData.locations.map((loc, index) => (
+                  {businessData.adresaJuridica.map((loc, index) => (
                     <Text key={index} style={styles.location}>
-                      <Text style={styles.boldText}>{"Sediul " + (index + 1) + ": "}</Text>
+                      <Text style={styles.boldText}>{"Adresa juridică " + (index + 1) + ": "}</Text>
+                      {loc.trim()}
+                    </Text>
+                  ))}
+                </View>
+              </View>
+            )}
+
+            {businessData.adresaFizica && (
+              <View style={styles.locationContainer}>
+                <MaterialCommunityIcons name="map-marker" size={24} color="black" />
+                <View style={styles.locations}>
+                  {businessData.adresaFizica.map((loc, index) => (
+                    <Text key={index} style={styles.location}>
+                      <Text style={styles.boldText}>{"Adresa fizică " + (index + 1) + ": "}</Text>
                       {loc.trim()}
                     </Text>
                   ))}
