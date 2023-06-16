@@ -30,7 +30,7 @@ const OnboardingScreen = ({ navigation }) => {
       animation.setValue(0);
       Animated.timing(animation, {
         toValue: 1,
-        duration: 5000,
+        duration: 2000,
         useNativeDriver: false,
       }).start();
     };
@@ -44,7 +44,7 @@ const OnboardingScreen = ({ navigation }) => {
       } else {
         clearInterval(interval);
       }
-    }, 5000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [step]);

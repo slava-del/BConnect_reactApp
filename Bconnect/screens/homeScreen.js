@@ -156,8 +156,8 @@ const styles = {
   logoTextContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 10,
-    paddingLeft: 20,
+    // marginBottom: 10,
+    // paddingLeft: 20,
   },
   logo: {
     marginRight: 10,
