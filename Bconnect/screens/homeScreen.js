@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, View, Text, Image, TouchableOpacity } from "react-native";
+import { ScrollView, View, Text, Image, TouchableOpacity, StatusBar } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
 import LottieView from 'lottie-react-native';
@@ -15,7 +15,7 @@ const CardSections = () => {
     console.log("Start loading homeScreen content");
     const loadImages = async () => {
       await Promise.all(
-        businessesData.map((business) => 
+        businessesData.map((business) =>
           Image.prefetch(business.coverImage).catch(error => {
             console.error('Failed to load image: ' + business.coverImage, error);
           })
@@ -23,7 +23,7 @@ const CardSections = () => {
       );
       setLoading(false);
     };
-  
+
     loadImages();
   }, []);
 
@@ -37,6 +37,11 @@ const CardSections = () => {
 
   return (
     <View style={styles.container}>
+
+      <StatusBar
+        backgroundColor="transparent"
+        translucent={true}
+      />
 
       <ScrollView vertical={true} showsVerticalScrollIndicator={false}>
 

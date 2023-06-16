@@ -11,14 +11,6 @@ const SearchBar = () => {
   return (
     <View style={styles.searchBar}>
       <TextInput placeholder="Caută o afacere" style={styles.searchInput} />
-      <TouchableOpacity style={styles.filterButton}>
-        <MaterialCommunityIcons
-          name="filter-variant"
-          size={33}
-          color="#000"
-          style={styles.filterIcon}
-        />
-      </TouchableOpacity>
     </View>
   );
 };

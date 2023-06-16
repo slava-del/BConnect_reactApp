@@ -25,12 +25,12 @@ const MapViewScreen = ({ route, navigation }) => {
     setLoading(true); // Reset loading state
     setCoordinates([]); // Reset coordinates state
 
-    // If locations are provided, get their geocodes
+    // If locations provided, get geocodes
     if (locations && locations.length > 0) {
       const coor = [];
       try {
         for (const location of locations) {
-          const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyDTtJS8peqsr8koE0oFKLFdNjBj7a5jfc8`);
+          const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=AIzaSyAZmho9bj80Cme7ZW_R6qlxp5IUye8GPLo`);
           coor.push(response.data.results[0].geometry.location);
         }
       } catch (error) {
