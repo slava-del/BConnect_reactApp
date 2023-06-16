@@ -112,13 +112,27 @@ const BusinessInfo = ({ route }) => {
             )}
 
             {/* Location information */}
-            {filteredData.location && (
+            {filteredData.locationFizic && (
               <View style={styles.locationContainer}>
                 <MaterialCommunityIcons name="map-marker" size={24} color="black" />
                 <View style={styles.locations}>
-                  {filteredData.location.map((loc, index) => (
+                  {filteredData.locationFizic.map((loc, index) => (
                     <Text key={index} style={styles.location}>
-                      <Text style={styles.boldText}>{"Sediul " + (index + 1) + ": "}</Text>
+                      <Text style={styles.boldText}>{"Adresa fizică " + (index + 1) + ": "}</Text>
+                      {loc.trim()}
+                    </Text>
+                  ))}
+                </View>
+              </View>
+            )}
+
+            {filteredData.locationJuridic && (
+              <View style={styles.locationContainer}>
+                <MaterialCommunityIcons name="map-marker-account" size={24} color="black" />
+                <View style={styles.locations}>
+                  {filteredData.locationJuridic.map((loc, index) => (
+                    <Text key={index} style={styles.location}>
+                      <Text style={styles.boldText}>{"Adresa juridică " + (index + 1) + ": "}</Text>
                       {loc.trim()}
                     </Text>
                   ))}
@@ -297,7 +311,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   boldText: {
-    fontWeight: 'bold', 
+    fontWeight: 'bold',
   },
   aboutTitle: {
     fontSize: 20,

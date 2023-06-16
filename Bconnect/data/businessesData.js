@@ -9,9 +9,10 @@ const businessesData = [
     title: "Rimobil",
     coverImage:
       "https://assets.architecturaldigest.in/photos/60eed0435260d592f50edbc7/16:9/pass/Italian-luxury-furniture-Minotti.jpg",
-    location: ["Strada București 92, Chișinău, Moldova", "Bulevardul Moscovei 15/4", "Strada Alunei 45"],
+    locationFizic: ["Strada București 92, Chișinău, Moldova", "Bulevardul Moscovei 15/4", "Strada Alunei 45"],
+    locationJuridic: ["Bulevardul Dacia 1"],
     phoneNumbers: ["+373-7892-1234", "+373-8902-2345"],
-    email: "rimobil@gmail.com", 
+    email: "rimobil@gmail.com",
     textCineSuntem:
       "Rimobil este unul dintre cei mai apreciați producători de mobilă de bucătărie din Moldova, recunoscut pentru calitatea, funcționalitatea și designul inovator al produselor sale. Compania noastră are o experiență bogată în domeniul amenajărilor interioare, specializându-se în crearea de soluții de mobilier adaptate nevoilor și preferințelor clienților săi.",
     textCeFacem:

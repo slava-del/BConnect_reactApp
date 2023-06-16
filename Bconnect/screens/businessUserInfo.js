@@ -140,20 +140,6 @@ export default function BusinessInfo() {
             )}
 
             {/* Location information */}
-            {businessData.adresaJuridica && (
-              <View style={styles.locationContainer}>
-                <MaterialCommunityIcons name="map-marker" size={24} color="black" />
-                <View style={styles.locations}>
-                  {businessData.adresaJuridica.map((loc, index) => (
-                    <Text key={index} style={styles.location}>
-                      <Text style={styles.boldText}>{"Adresa juridică " + (index + 1) + ": "}</Text>
-                      {loc.trim()}
-                    </Text>
-                  ))}
-                </View>
-              </View>
-            )}
-
             {businessData.adresaFizica && (
               <View style={styles.locationContainer}>
                 <MaterialCommunityIcons name="map-marker" size={24} color="black" />
@@ -161,6 +147,20 @@ export default function BusinessInfo() {
                   {businessData.adresaFizica.map((loc, index) => (
                     <Text key={index} style={styles.location}>
                       <Text style={styles.boldText}>{"Adresa fizică " + (index + 1) + ": "}</Text>
+                      {loc.trim()}
+                    </Text>
+                  ))}
+                </View>
+              </View>
+            )}
+
+            {businessData.adresaJuridica && (
+              <View style={styles.locationContainer}>
+                <MaterialCommunityIcons name="map-marker-account" size={24} color="black" />
+                <View style={styles.locations}>
+                  {businessData.adresaJuridica.map((loc, index) => (
+                    <Text key={index} style={styles.location}>
+                      <Text style={styles.boldText}>{"Adresa juridică " + (index + 1) + ": "}</Text>
                       {loc.trim()}
                     </Text>
                   ))}
