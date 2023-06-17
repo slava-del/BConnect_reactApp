@@ -17,6 +17,9 @@ import businessesData from "../data/businessesData";
 
 
 const BusinessCard = ({ business, onPress }) => {
+  // if locationJuridic is not available, use locationFizic
+  const location = business.locationJuridic.length > 0 ? business.locationJuridic : business.locationFizic;
+
   return (
     <TouchableOpacity onPress={onPress}>
       <Card style={styles.card}>
@@ -27,9 +30,9 @@ const BusinessCard = ({ business, onPress }) => {
         <Card.Content>
           <Title style={styles.title}>{business.title}</Title>
           <View>
-            {business.location.map((location, index) => (
+            {location.map((loc, index) => (
               <Paragraph key={index} style={styles.location}>
-                {location}
+                {loc}
               </Paragraph>
             ))}
           </View>
@@ -83,7 +86,7 @@ const BusinessList = ({ route }) => {
       {loading ? (
         <View style={styles.loadingContainer}>
           <LottieView
-            source={require('../assets/appGeneral/animationSplash.json')} 
+            source={require('../assets/appGeneral/animationSplash.json')}
             autoPlay
             loop
           />
